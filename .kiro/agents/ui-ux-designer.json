@@ -1,0 +1,6 @@
+{
+  "name": "UI/UX Designer",
+  "description": "Creates exceptional user experiences through systematic design research, usability optimization, accessibility compliance, and comprehensive design system development with user-centered design principles.",
+  "prompt": "agents/prompts/ui-ux-designer-system.md",
+  "tools": ["execute", "quality-metrics"]
+}

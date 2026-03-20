@@ -1,0 +1,353 @@
+# UI/UX Designer Agent Hooks Configuration
+# Automated design workflow and user experience triggers
+
+agent_name: "UI/UX Designer"
+agent_role: "User Experience & Interface Design Expert"
+version: "1.0"
+
+hooks:
+  # Design and User Experience Triggers
+  - name: "systematic_design_implementation"
+    description: "Execute systematic design development using standardized framework"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execute"
+        - agent: "ui-ux-designer"
+    action:
+      type: "execute_prompt"
+      prompt: "execute.md"
+      message: "Executing systematic design development with comprehensive usability validation and accessibility compliance..."
+      agent: "ui-ux-designer"
+      include_context:
+        - design_requirements: true
+        - user_research: true
+        - accessibility_standards: true
+        - brand_guidelines: true
+
+  - name: "ui_component_design_trigger"
+    description: "Trigger design review when new UI components are created or modified"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "frontend/src/components/**/*.tsx"
+        - "frontend/src/components/**/*.css"
+        - "frontend/src/styles/*.css"
+        - "frontend/tailwind.config.js"
+    action:
+      type: "agent_message"
+      message: |
+        🎨 UI COMPONENT DESIGN REVIEW
+        
+        UI component changes detected. Use @execute for systematic design review with comprehensive usability and accessibility validation.
+        
+        **Design Review Areas:**
+        - Component usability and accessibility compliance
+        - Visual consistency with design system
+        - Responsive design and mobile optimization
+        - User interaction patterns and micro-interactions
+        - Performance impact of design choices
+        
+        Use @execute to implement systematic design improvements with user-centered validation.
+
+  - name: "user_flow_optimization_trigger"
+    description: "Trigger UX review when user-facing routes or navigation changes"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "frontend/src/App.tsx"
+        - "frontend/src/components/navigation/*.tsx"
+        - "frontend/src/pages/*.tsx"
+        - "frontend/src/routes/*.tsx"
+    action:
+      type: "agent_message"
+      message: |
+        🗺️ USER FLOW & NAVIGATION OPTIMIZATION
+        
+        Navigation or user flow changes detected. Let me help optimize the user journey and experience.
+        
+        **UX Optimization Areas:**
+        - User journey mapping and flow optimization
+        - Navigation usability and information architecture
+        - Conversion funnel analysis and improvement
+        - Mobile navigation patterns and responsive design
+        - Accessibility in navigation and user flows
+        
+        **User Experience Questions:**
+        1. What user flows or navigation changes were implemented? (New pages, navigation structure, user paths)
+        2. What are the primary user goals for these flows? (Task completion, information finding, conversion)
+        3. What user types will use these flows? (New users, returning users, different user roles)
+        4. What success metrics should we optimize for? (Conversion rate, task completion, user satisfaction)
+        5. Are there any known user pain points or friction areas to address?
+        6. What analytics or user feedback data is available for these flows?
+        
+        I'll analyze the user experience and recommend improvements for better usability and conversion.
+
+  - name: "accessibility_compliance_trigger"
+    description: "Trigger accessibility review when UI changes affect user interaction"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "frontend/src/components/ui/*.tsx"
+        - "frontend/src/components/forms/*.tsx"
+        - "frontend/src/components/modals/*.tsx"
+        - "frontend/src/components/navigation/*.tsx"
+    action:
+      type: "agent_message"
+      message: |
+        ♿ ACCESSIBILITY COMPLIANCE REVIEW
+        
+        Interactive UI changes detected. Let me ensure accessibility compliance and inclusive design.
+        
+        **Accessibility Review Areas:**
+        - WCAG 2.1 compliance (AA/AAA level)
+        - Screen reader compatibility and ARIA implementation
+        - Keyboard navigation and focus management
+        - Color contrast and visual accessibility
+        - Mobile accessibility and touch target sizing
+        
+        **Accessibility Assessment Questions:**
+        1. What accessibility level do you need to meet? (WCAG 2.1 AA, AAA, specific compliance requirements)
+        2. What user groups with disabilities should be supported? (Visual, auditory, motor, cognitive impairments)
+        3. What assistive technologies need to be compatible? (Screen readers, keyboard navigation, voice control)
+        4. Are there any specific accessibility requirements or constraints?
+        5. What testing approach do you prefer? (Automated testing, manual testing, user testing with disabilities)
+        6. Do you need accessibility documentation or compliance reporting?
+        
+        I'll ensure your interface is accessible and inclusive for all users while maintaining great usability.
+
+  # User Research and Testing Triggers
+  - name: "user_research_trigger"
+    description: "Trigger user research when significant feature changes are made"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "frontend/src/pages/*.tsx"
+        - "frontend/src/components/dashboard/*.tsx"
+        - "frontend/src/components/auth/*.tsx"
+        - "frontend/src/components/tasks/*.tsx"
+    action:
+      type: "agent_message"
+      message: |
+        🔍 USER RESEARCH & VALIDATION OPPORTUNITY
+        
+        Significant feature changes detected. Let me help validate design decisions with user research.
+        
+        **Research Opportunity Areas:**
+        - User testing of new features and interactions
+        - Usability validation and pain point identification
+        - User feedback collection and analysis
+        - A/B testing opportunities for design decisions
+        - User behavior analysis and optimization
+        
+        **Research Planning Questions:**
+        1. What features or changes need user validation? (New functionality, design changes, user flows)
+        2. What research questions do you want to answer? (Usability, user satisfaction, feature adoption)
+        3. Who are your target users for testing? (Existing users, new users, specific user segments)
+        4. What research methods fit your timeline and budget? (Remote testing, surveys, interviews, analytics)
+        5. What success criteria will you use to evaluate the research results?
+        6. How will research findings be incorporated into design decisions?
+        
+        I'll help design research that provides actionable insights for improving user experience.
+
+  - name: "design_system_update_trigger"
+    description: "Trigger design system review when component library changes"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "frontend/src/components/ui/index.ts"
+        - "frontend/src/styles/globals.css"
+        - "frontend/tailwind.config.js"
+        - "frontend/src/types/ui.ts"
+    action:
+      type: "agent_message"
+      message: |
+        🎯 DESIGN SYSTEM CONSISTENCY REVIEW
+        
+        Design system or component library changes detected. Let me help maintain design consistency and scalability.
+        
+        **Design System Areas:**
+        - Component consistency and reusability
+        - Design token management (colors, typography, spacing)
+        - Documentation and usage guidelines
+        - Cross-component interaction patterns
+        - Scalability and maintenance considerations
+        
+        **Design System Questions:**
+        1. What design system changes were made? (New components, token updates, pattern modifications)
+        2. How should these changes affect existing components? (Breaking changes, backward compatibility)
+        3. What documentation needs to be updated? (Component guidelines, usage examples, design principles)
+        4. How will these changes be communicated to the development team?
+        5. What testing is needed to ensure design system consistency?
+        6. Are there any brand or visual identity considerations?
+        
+        I'll help ensure your design system remains consistent, scalable, and well-documented.
+
+  # Performance and Optimization Triggers
+  - name: "visual_performance_trigger"
+    description: "Trigger design optimization when performance issues are detected"
+    trigger:
+      type: "manual"
+      description: "Manual trigger for visual performance optimization"
+    action:
+      type: "agent_message"
+      message: |
+        ⚡ VISUAL PERFORMANCE OPTIMIZATION
+        
+        Performance concerns detected. Let me help optimize design for better user experience and performance.
+        
+        **Performance Optimization Areas:**
+        - Image optimization and lazy loading strategies
+        - Animation performance and GPU acceleration
+        - CSS optimization and critical path rendering
+        - Font loading optimization and web font strategies
+        - Layout shift prevention and visual stability
+        
+        **Performance Assessment Questions:**
+        1. What performance issues are you experiencing? (Slow loading, janky animations, layout shifts)
+        2. What are your performance targets? (Core Web Vitals, loading times, interaction responsiveness)
+        3. What devices and network conditions need to be optimized for? (Mobile, slow connections, low-end devices)
+        4. What visual elements are causing performance issues? (Images, animations, complex layouts)
+        5. What's your preferred approach to optimization? (Automated tools, manual optimization, progressive enhancement)
+        6. How do you want to measure and monitor performance improvements?
+        
+        I'll help optimize your design for better performance while maintaining visual quality and user experience.
+
+  - name: "responsive_design_review"
+    description: "Regular responsive design and mobile optimization review"
+    trigger:
+      type: "schedule"
+      schedule: "bi-weekly"
+    action:
+      type: "agent_message"
+      message: |
+        📱 RESPONSIVE DESIGN & MOBILE OPTIMIZATION REVIEW
+        
+        Bi-weekly responsive design review to ensure optimal experience across all devices.
+        
+        **Responsive Design Areas:**
+        - Mobile-first design implementation and optimization
+        - Breakpoint strategy and flexible layout systems
+        - Touch interaction design and accessibility
+        - Cross-device consistency and user experience
+        - Performance optimization for mobile devices
+        
+        **Mobile Experience Questions:**
+        1. What devices and screen sizes are most important for your users? (Mobile phones, tablets, desktop)
+        2. Are there any mobile-specific user behaviors or needs to consider?
+        3. What mobile performance requirements do you have? (Loading speed, interaction responsiveness)
+        4. How do users typically interact with your app on mobile? (Touch patterns, one-handed use)
+        5. Are there any mobile-specific features or constraints to consider?
+        6. What mobile analytics or user feedback data is available?
+        
+        Let's ensure your design provides an excellent experience across all devices and screen sizes.
+
+  - name: "user_feedback_analysis"
+    description: "Regular user feedback analysis and design improvement opportunities"
+    trigger:
+      type: "schedule"
+      schedule: "monthly"
+    action:
+      type: "agent_message"
+      message: |
+        📊 USER FEEDBACK ANALYSIS & DESIGN IMPROVEMENTS
+        
+        Monthly user feedback analysis to identify design improvement opportunities.
+        
+        **Feedback Analysis Areas:**
+        - User satisfaction and usability feedback analysis
+        - Support ticket analysis for design-related issues
+        - Analytics data review for user behavior insights
+        - Conversion funnel analysis and optimization opportunities
+        - Feature adoption and user engagement analysis
+        
+        **Feedback Review Questions:**
+        1. What user feedback channels do you have? (Support tickets, surveys, user interviews, analytics)
+        2. What are the most common user complaints or pain points?
+        3. What features have low adoption or high abandonment rates?
+        4. What positive feedback patterns can we build upon?
+        5. What business metrics are most important to improve through design?
+        6. What resources are available for implementing design improvements?
+        
+        I'll analyze user feedback and recommend design improvements that address real user needs and business goals.
+
+# Integration Hooks with Other Agents
+integration_hooks:
+  - agent: "Frontend Architect"
+    trigger: "Component design and implementation alignment"
+    message: "UI/UX Designer available for design system collaboration and component usability optimization"
+    
+  - agent: "Backend Engineer"
+    trigger: "User data and API design for better UX"
+    message: "UI/UX Designer ready to collaborate on user-friendly data structures and error handling"
+    
+  - agent: "Security Specialist"
+    trigger: "Security UX and privacy design patterns"
+    message: "UI/UX Designer available for secure authentication flows and privacy-first design"
+    
+  - agent: "Test Orchestrator"
+    trigger: "Usability testing and design validation"
+    message: "UI/UX Designer ready to integrate user testing into quality assurance processes"
+    
+  - agent: "DevOps Engineer"
+    trigger: "Performance optimization for design assets"
+    message: "UI/UX Designer available for design performance optimization and asset delivery"
+
+# Consultation Triggers
+consultation_triggers:
+  - name: "user_experience_requirements_gathering"
+    description: "Comprehensive UX consultation for new projects or features"
+    message: |
+      🎯 USER EXPERIENCE REQUIREMENTS CONSULTATION
+      
+      Starting user experience planning to create exceptional and user-centered design.
+      
+      **Key Areas to Discuss:**
+      1. **Target Users**: Who are your users and what are their goals, needs, and pain points?
+      2. **Business Objectives**: What business goals should the design achieve?
+      3. **Success Metrics**: How will you measure design success and user satisfaction?
+      4. **Brand & Style**: What's your brand identity and visual design preferences?
+      5. **Technical Constraints**: What technical limitations or requirements should I consider?
+      
+      Let's create a design strategy that balances user needs with business objectives and technical feasibility.
+
+  - name: "design_system_consultation"
+    description: "Comprehensive design system planning and implementation"
+    message: |
+      🎨 DESIGN SYSTEM STRATEGY CONSULTATION
+      
+      Planning comprehensive design system for consistency, scalability, and developer efficiency.
+      
+      **Design System Questions:**
+      1. **Scope & Scale**: What components and patterns need to be systematized?
+      2. **Brand Integration**: How should brand identity be reflected in the design system?
+      3. **Developer Collaboration**: How will the design system integrate with development workflow?
+      4. **Maintenance Strategy**: How will the design system be maintained and evolved?
+      5. **Documentation Needs**: What documentation and guidelines are needed for adoption?
+      
+      I'll help create a design system that serves both design consistency and development efficiency.
+
+  - name: "quality_metrics_collection"
+    description: "Collect design and user experience quality metrics"
+    trigger:
+      type: "design_implementation"
+      conditions:
+        - implementation_type: ["component", "feature", "system"]
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting design quality metrics: usability, accessibility, and user satisfaction..."
+      agent: "ui-ux-designer"
+      include_context:
+        - usability_metrics: true
+        - accessibility_compliance: true
+        - user_feedback: true
+
+# Notification Settings
+notifications:
+  usability_issues: "immediate"
+  accessibility_violations: "immediate"
+  user_feedback: "daily"
+  design_system_updates: "immediate"
+  performance_issues: "immediate"
+  research_opportunities: "weekly"

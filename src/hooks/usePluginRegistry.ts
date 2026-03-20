@@ -3,6 +3,16 @@ import { useCallback, useEffect, useState } from "react";
 
 import type { RegistryPluginWithStatus } from "../types/plugins";
 
+function isTauriRuntimeAvailable(): boolean {
+  if (typeof window === "undefined") return false;
+  const w = window as Window & {
+    __TAURI_INTERNALS__?: {
+      invoke?: unknown;
+    };
+  };
+  return typeof w.__TAURI_INTERNALS__?.invoke === "function";
+}
+
 export function usePluginRegistry(): {
   plugins: RegistryPluginWithStatus[];
   loading: boolean;
@@ -14,6 +24,15 @@ export function usePluginRegistry(): {
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(() => {
+    if (!isTauriRuntimeAvailable()) {
+      setPlugins([]);
+      setLoading(false);
+      setError(
+        "Plugin registry is only available in the Tauri desktop runtime. Start the app with `npm run tauri dev`."
+      );
+      return;
+    }
+
     invoke<RegistryPluginWithStatus[]>("fetch_plugin_registry")
       .then((result) => {
         setPlugins(result);

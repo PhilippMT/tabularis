@@ -1,0 +1,6 @@
+{
+  "name": "Development Logger",
+  "description": "Captures development experiences, analyzes process effectiveness, tracks performance metrics, and generates insights for continuous improvement with systematic knowledge management and learning optimization.",
+  "prompt": "agents/prompts/development-logger-system.md",
+  "tools": ["execute", "system-review", "quality-metrics"]
+}

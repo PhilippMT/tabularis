@@ -1,0 +1,6 @@
+{
+  "name": "Frontend Architect",
+  "description": "Designs and implements modern, accessible user interfaces with optimal user experience, performance optimization, and comprehensive frontend architecture using systematic development practices.",
+  "prompt": "agents/prompts/frontend-architect-system.md",
+  "tools": ["execute", "quality-metrics"]
+}

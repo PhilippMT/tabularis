@@ -1,0 +1,521 @@
+# Frontend Architect Agent Hooks Configuration
+# Automated triggers for UI/UX development and component management
+
+hooks:
+  # Initial Consultation and Discovery
+  - name: "project-consultation-trigger"
+    description: "Trigger when starting a new frontend project or major feature"
+    trigger:
+      type: "message"
+      pattern: "(?i)(new project|start|begin|frontend|ui|interface|website|app)"
+    action:
+      type: "message"
+      content: |
+        🎯 **Frontend Architect Consultation Started**
+        
+        Before we dive into implementation, let me understand your requirements:
+        
+        **🔧 Technology Stack Preferences:**
+        - Frontend Framework: React | Vue | Angular | Svelte | Other?
+        - Language: TypeScript (recommended) | JavaScript?
+        - Styling Approach: Tailwind | Material-UI | Styled Components | Custom CSS?
+        - State Management: Redux | Zustand | Context API | Framework-specific?
+        
+        **🎨 Design & Branding:**
+        - Do you have existing brand guidelines or design system?
+        - Color palette preferences (primary, secondary, accent colors)?
+        - Typography requirements (font families, sizing approach)?
+        - Design aesthetic: Modern | Minimal | Corporate | Playful | Other?
+        - Dark mode support needed?
+        
+        **👥 User Experience Requirements:**
+        - Target audience and primary use cases?
+        - Device priorities: Mobile-first | Desktop-focused | Both equally?
+        - Browser support requirements?
+        - Accessibility compliance level needed?
+        - Performance targets (loading times, bundle size)?
+        
+        **📋 Project Context:**
+        - Timeline and development phases?
+        - Team expertise level with frontend technologies?
+        - Integration requirements (APIs, existing systems)?
+        - Any specific constraints or preferences?
+        
+        Once I understand these requirements, I'll provide tailored recommendations and implementation strategies!
+
+  - name: "technology-recommendation-trigger"
+    description: "Trigger when technology stack recommendations are needed"
+    trigger:
+      type: "message"
+      pattern: "(?i)(recommend|suggest|choose|select).*(framework|library|technology|stack|tool)"
+    action:
+      type: "message"
+      content: |
+        🔍 **Technology Stack Consultation**
+        
+        I'll help you choose the optimal frontend technology stack. Let me ask a few key questions:
+        
+        **Project Requirements Assessment:**
+        1. **Complexity Level**: Simple landing page | Interactive app | Complex enterprise system?
+        2. **Team Expertise**: Beginner | Intermediate | Advanced frontend developers?
+        3. **Timeline**: Rapid prototype | Standard development | Long-term project?
+        4. **Performance Needs**: Standard | High-performance | Real-time features?
+        5. **Maintenance**: Short-term | Long-term maintenance expected?
+        
+        **Technology Preferences:**
+        - Any existing framework experience or organizational preferences?
+        - TypeScript comfort level (strongly recommended for larger projects)?
+        - Styling preference: Utility-first | Component libraries | Custom CSS?
+        - State complexity: Simple local state | Complex app state | Real-time data?
+        
+        **Integration Requirements:**
+        - Existing backend APIs or services to integrate?
+        - Authentication requirements?
+        - Real-time features needed (WebSockets, live updates)?
+        - Third-party service integrations?
+        
+        Based on your answers, I'll recommend the optimal stack with detailed reasoning!
+
+  - name: "design-consultation-trigger"
+    description: "Trigger when design and theming consultation is needed"
+    trigger:
+      type: "message"
+      pattern: "(?i)(design|theme|branding|colors|fonts|style|look|feel|ui|ux)"
+    action:
+      type: "message"
+      content: |
+        🎨 **Design & Theming Consultation**
+        
+        Let's create a beautiful, cohesive user experience! I need to understand your design vision:
+        
+        **🎯 Brand & Visual Identity:**
+        - Do you have existing brand guidelines, logos, or design assets?
+        - What's your desired aesthetic? (Modern, minimal, corporate, playful, elegant, etc.)
+        - Any competitor sites or designs you admire? (Please share examples)
+        - Target audience and their expectations?
+        
+        **🌈 Color & Typography:**
+        - Primary brand colors (hex codes if available)?
+        - Secondary/accent colors preferences?
+        - Font preferences: Sans-serif | Serif | Monospace | Custom fonts?
+        - Typography hierarchy needs (headings, body text, captions)?
+        
+        **📱 Layout & Interaction:**
+        - Layout style: Clean/minimal | Rich/detailed | Card-based | List-based?
+        - Component styling: Rounded corners | Sharp edges | Shadows | Flat design?
+        - Animation preferences: Subtle | Dynamic | Minimal | None?
+        - Dark mode support required?
+        
+        **♿ Accessibility & Usability:**
+        - Accessibility compliance level needed (WCAG 2.0 AA, 2.1 AAA)?
+        - Color contrast requirements?
+        - Keyboard navigation importance?
+        - Screen reader support needed?
+        
+        **📐 Design System Approach:**
+        - Custom design system | Adapted component library | Utility-first approach?
+        - Consistency requirements across different sections/pages?
+        - Future scalability and maintenance considerations?
+        
+        With these details, I'll create a comprehensive design strategy and implementation plan!
+
+  # Component Development Lifecycle
+  - name: "systematic_frontend_implementation"
+    description: "Execute systematic frontend development using standardized framework"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execute"
+        - agent: "frontend-architect"
+    action:
+      type: "execute_prompt"
+      prompt: "execute.md"
+      message: "Executing systematic frontend development with comprehensive UI/UX validation and accessibility compliance..."
+      agent: "frontend-architect"
+      include_context:
+        - ui_requirements: true
+        - design_system: true
+        - accessibility_standards: true
+        - performance_targets: true
+
+  - name: "component-creation-trigger"
+    description: "Trigger when new UI components need to be created"
+    trigger:
+      type: "message"
+      pattern: "(?i)(create|build|implement).*(component|ui|interface|page|form)"
+    action:
+      type: "message"
+      content: |
+        🎨 **Frontend Architect Activated**
+        
+        I'll help you create modern, accessible UI components. Use @execute for systematic implementation with:
+        
+        1. **Analyze Requirements**: Understand the component specifications and user needs
+        2. **Design Architecture**: Plan component structure using atomic design principles
+        3. **Implement Components**: Build with React, TypeScript, and Tailwind CSS
+        4. **Ensure Accessibility**: Add ARIA attributes and keyboard navigation
+        5. **Integrate APIs**: Connect with Backend Engineer's endpoints efficiently
+        6. **Test Responsiveness**: Verify mobile-first responsive design
+        
+        Ready to build exceptional user experiences! Use @execute to begin systematic implementation.
+
+  - name: "api-integration-trigger"
+    description: "Trigger when frontend needs to integrate with backend APIs"
+    trigger:
+      type: "message"
+      pattern: "(?i)(integrate|connect|consume).*(api|endpoint|backend|service)"
+    action:
+      type: "message"
+      content: |
+        🔌 **API Integration Specialist Ready**
+        
+        I'll seamlessly connect your frontend with the backend APIs. My approach:
+        
+        1. **API Analysis**: Review Backend Engineer's endpoint specifications
+        2. **State Management**: Implement Redux Toolkit with RTK Query for efficient data fetching
+        3. **Error Handling**: Add comprehensive error boundaries and user feedback
+        4. **Authentication**: Integrate JWT token management and protected routes
+        5. **Real-time Updates**: Connect WebSocket for live data synchronization
+        6. **Caching Strategy**: Optimize API calls with intelligent caching
+        
+        **Integration Features:**
+        - Automatic token refresh handling
+        - Loading states and error messages
+        - Optimistic updates for better UX
+        - Request deduplication and caching
+        - Type-safe API client generation
+        
+        Let's connect your UI to the backend efficiently!
+
+  - name: "responsive-design-trigger"
+    description: "Trigger when responsive design implementation is needed"
+    trigger:
+      type: "message"
+      pattern: "(?i)(responsive|mobile|tablet|desktop|breakpoint|grid|layout)"
+    action:
+      type: "message"
+      content: |
+        📱 **Responsive Design Expert Engaged**
+        
+        I'll ensure your application works beautifully across all devices:
+        
+        1. **Mobile-First Approach**: Start with mobile design, enhance for larger screens
+        2. **Flexible Grid Systems**: Implement CSS Grid and Flexbox layouts
+        3. **Breakpoint Strategy**: Define optimal breakpoints for all device sizes
+        4. **Touch Interactions**: Optimize for touch gestures and accessibility
+        5. **Performance**: Ensure fast loading on mobile networks
+        6. **Testing**: Verify across multiple devices and screen sizes
+        
+        **Responsive Standards:**
+        - Mobile: 320px - 768px (touch-optimized)
+        - Tablet: 768px - 1024px (hybrid interactions)
+        - Desktop: 1024px+ (mouse/keyboard optimized)
+        - Large screens: 1440px+ (enhanced layouts)
+        
+        Ready to create a seamless multi-device experience!
+
+  - name: "accessibility-audit-trigger"
+    description: "Trigger when accessibility improvements are needed"
+    trigger:
+      type: "message"
+      pattern: "(?i)(accessibility|a11y|wcag|screen reader|keyboard|aria)"
+    action:
+      type: "message"
+      content: |
+        ♿ **Accessibility Champion Activated**
+        
+        I'll ensure your application is inclusive and accessible to all users:
+        
+        1. **WCAG Compliance**: Implement WCAG 2.1 AA standards throughout
+        2. **Keyboard Navigation**: Full keyboard accessibility for all interactions
+        3. **Screen Reader Support**: Proper ARIA labels and semantic HTML
+        4. **Color Contrast**: Ensure sufficient contrast ratios for readability
+        5. **Focus Management**: Clear focus indicators and logical tab order
+        6. **Alternative Text**: Descriptive alt text for images and media
+        
+        **Accessibility Checklist:**
+        - ✅ Semantic HTML structure
+        - ✅ ARIA attributes and roles
+        - ✅ Keyboard navigation support
+        - ✅ Color contrast compliance
+        - ✅ Screen reader compatibility
+        - ✅ Focus management
+        
+        Let's build an inclusive experience for everyone!
+
+  - name: "performance-optimization-trigger"
+    description: "Trigger when frontend performance optimization is needed"
+    trigger:
+      type: "message"
+      pattern: "(?i)(performance|optimize|slow|loading|bundle|speed|lighthouse)"
+    action:
+      type: "message"
+      content: |
+        ⚡ **Performance Optimization Specialist Ready**
+        
+        I'll optimize your frontend for lightning-fast performance:
+        
+        1. **Bundle Analysis**: Analyze and optimize bundle size with code splitting
+        2. **Lazy Loading**: Implement component and route-based lazy loading
+        3. **Image Optimization**: Optimize images with modern formats and lazy loading
+        4. **Caching Strategy**: Implement efficient browser and API caching
+        5. **Core Web Vitals**: Optimize LCP, FID, and CLS metrics
+        6. **Memory Management**: Prevent memory leaks and optimize re-renders
+        
+        **Performance Targets:**
+        - First Contentful Paint: < 1.5s
+        - Largest Contentful Paint: < 2.5s
+        - First Input Delay: < 100ms
+        - Cumulative Layout Shift: < 0.1
+        - Bundle size: Optimized with tree shaking
+        
+        Ready to make your app blazingly fast!
+
+  # Development Workflow Hooks
+  - name: "component-testing-trigger"
+    description: "Trigger when component testing is needed"
+    trigger:
+      type: "message"
+      pattern: "(?i)(test|testing|jest|cypress|playwright).*(component|ui|frontend)"
+    action:
+      type: "message"
+      content: |
+        🧪 **Component Testing Specialist Engaged**
+        
+        I'll ensure your components are thoroughly tested and reliable:
+        
+        1. **Unit Testing**: Jest and React Testing Library for component logic
+        2. **Integration Testing**: Test component interactions and API integration
+        3. **Visual Testing**: Storybook for component documentation and visual regression
+        4. **E2E Testing**: Coordinate with Test Orchestrator for end-to-end scenarios
+        5. **Accessibility Testing**: Automated a11y testing with jest-axe
+        6. **Performance Testing**: Component rendering performance benchmarks
+        
+        **Testing Strategy:**
+        - Component behavior and props handling
+        - User interactions and event handling
+        - API integration and error states
+        - Accessibility compliance
+        - Visual consistency across browsers
+        
+        Let's build confidence in your UI components!
+
+  - name: "design-system-trigger"
+    description: "Trigger when design system work is needed"
+    trigger:
+      type: "message"
+      pattern: "(?i)(design system|component library|tokens|theme|branding|style guide)"
+    action:
+      type: "message"
+      content: |
+        🎨 **Design System Architect Activated**
+        
+        I'll help you build a cohesive, scalable design system:
+        
+        1. **Design Tokens**: Define colors, typography, spacing, and elevation scales
+        2. **Component Library**: Build reusable, documented component collection
+        3. **Theme System**: Implement dark/light mode and customizable themes
+        4. **Documentation**: Create comprehensive component usage guidelines
+        5. **Consistency**: Ensure visual and interaction consistency across the app
+        6. **Scalability**: Design for future growth and team collaboration
+        
+        **Design System Components:**
+        - Atomic elements (buttons, inputs, icons)
+        - Molecular components (forms, cards, navigation)
+        - Layout systems (grids, containers, spacing)
+        - Theme configuration and customization
+        - Usage documentation and examples
+        
+        Ready to create a unified design language!
+
+  # Collaboration Hooks
+  - name: "backend-coordination-trigger"
+    description: "Trigger when coordination with Backend Engineer is needed"
+    trigger:
+      type: "message"
+      pattern: "(?i)(backend|api|endpoint|database|server).*(frontend|ui|integration)"
+    action:
+      type: "message"
+      content: |
+        🤝 **Backend-Frontend Coordination Initiated**
+        
+        I'll work closely with the Backend Engineer to ensure seamless integration:
+        
+        **Coordination Areas:**
+        1. **API Contract Review**: Validate endpoint specifications and data formats
+        2. **Authentication Flow**: Align JWT implementation and protected routes
+        3. **Error Handling**: Standardize error responses and user feedback
+        4. **Real-time Features**: Coordinate WebSocket implementation
+        5. **Data Validation**: Ensure client-side validation matches backend rules
+        6. **Performance**: Optimize API usage patterns and caching strategies
+        
+        **Integration Checklist:**
+        - ✅ API endpoint documentation review
+        - ✅ Authentication token handling
+        - ✅ Error response standardization
+        - ✅ Loading states and user feedback
+        - ✅ Data transformation and validation
+        - ✅ Real-time update mechanisms
+        
+        Let's create a perfectly integrated fullstack experience!
+
+  - name: "database-ui-coordination-trigger"
+    description: "Trigger when UI needs to reflect database structure"
+    trigger:
+      type: "message"
+      pattern: "(?i)(database|schema|model|entity).*(ui|form|display|table)"
+    action:
+      type: "message"
+      content: |
+        🗄️ **Database-UI Alignment Specialist Ready**
+        
+        I'll ensure your UI perfectly reflects the database structure and relationships:
+        
+        **Database-UI Mapping:**
+        1. **Form Generation**: Create forms that match database schema constraints
+        2. **Relationship Display**: Show entity relationships in intuitive UI patterns
+        3. **Data Validation**: Implement client-side validation matching DB rules
+        4. **Search & Filtering**: Build UI that leverages database indexes efficiently
+        5. **Data Visualization**: Present complex data relationships clearly
+        6. **CRUD Operations**: Design intuitive interfaces for data management
+        
+        **UI Patterns for Database Operations:**
+        - Master-detail views for related entities
+        - Searchable dropdowns for foreign key relationships
+        - Bulk operations with progress indicators
+        - Data tables with sorting and filtering
+        - Form wizards for complex data entry
+        
+        Ready to create data-driven user interfaces!
+
+  # Quality Assurance Hooks
+  - name: "code-review-trigger"
+    description: "Trigger when frontend code review is needed"
+    trigger:
+      type: "file_save"
+      pattern: "\\.(tsx?|jsx?|css|scss)$"
+    action:
+      type: "message"
+      content: |
+        👀 **Frontend Code Review Initiated**
+        
+        Automatically reviewing your frontend code for:
+        
+        **Code Quality Checks:**
+        - TypeScript type safety and interfaces
+        - Component prop validation and defaults
+        - Accessibility attributes and semantic HTML
+        - Performance optimizations and anti-patterns
+        - Design system consistency
+        - Error handling and loading states
+        
+        **Best Practices Verification:**
+        - Component composition and reusability
+        - State management patterns
+        - API integration efficiency
+        - CSS organization and naming conventions
+        - Test coverage and documentation
+        
+        I'll provide specific feedback and improvement suggestions!
+
+  - name: "deployment-readiness-trigger"
+    description: "Trigger when frontend is ready for deployment"
+    trigger:
+      type: "message"
+      pattern: "(?i)(deploy|deployment|build|production|release)"
+    action:
+      type: "message"
+      content: |
+        🚀 **Deployment Readiness Assessment**
+        
+        I'll ensure your frontend is production-ready:
+        
+        **Pre-Deployment Checklist:**
+        1. **Build Optimization**: Verify bundle size and code splitting
+        2. **Performance Audit**: Run Lighthouse and Core Web Vitals checks
+        3. **Accessibility Compliance**: Final a11y audit and testing
+        4. **Cross-Browser Testing**: Verify compatibility across browsers
+        5. **Mobile Responsiveness**: Test on various device sizes
+        6. **Error Handling**: Ensure graceful error states and fallbacks
+        
+        **Production Optimizations:**
+        - ✅ Minified and compressed assets
+        - ✅ Optimized images and lazy loading
+        - ✅ Service worker for caching (if applicable)
+        - ✅ Environment-specific configurations
+        - ✅ Analytics and monitoring setup
+        - ✅ SEO optimization and meta tags
+        
+        Ready to launch your exceptional user experience!
+
+  # Learning and Improvement Hooks
+  - name: "devlog-contribution-trigger"
+    description: "Trigger to contribute frontend insights to development log"
+    trigger:
+      type: "agent_completion"
+      agent: "frontend-architect"
+    action:
+      type: "message"
+      content: |
+        📝 **Frontend Development Insights for DevLog**
+        
+        Contributing frontend-specific insights to the development log:
+        
+        **UI/UX Achievements:**
+        - Component architecture decisions and patterns used
+        - Accessibility improvements and WCAG compliance measures
+        - Performance optimizations and bundle size reductions
+        - Responsive design implementations and breakpoint strategies
+        - User experience enhancements and interaction patterns
+        
+        **Technical Decisions:**
+        - State management choices and data flow patterns
+        - API integration strategies and error handling approaches
+        - Design system evolution and component library growth
+        - Testing strategies and coverage improvements
+        - Build optimization and deployment considerations
+        
+        **Collaboration Insights:**
+        - Backend integration challenges and solutions
+        - Database-UI alignment strategies
+        - Cross-agent coordination effectiveness
+        - User feedback incorporation and iteration cycles
+        
+        These insights will help improve future frontend development workflows!
+
+  - name: "quality_metrics_collection"
+    description: "Collect frontend-specific quality metrics and user experience data"
+    trigger:
+      type: "component_deployment"
+      conditions:
+        - deployment_type: ["staging", "production"]
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting frontend quality metrics: performance, accessibility, and user experience..."
+      agent: "frontend-architect"
+      include_context:
+        - performance_metrics: true
+        - accessibility_scores: true
+        - user_experience_data: true
+
+# Hook Configuration Metadata
+metadata:
+  agent: "frontend-architect"
+  version: "1.0"
+  created: "2026-01-04"
+  description: "Comprehensive hook configuration for Frontend Architect Agent covering UI development, API integration, accessibility, performance, and team collaboration"
+  
+# Hook Categories
+categories:
+  - component-development
+  - api-integration
+  - responsive-design
+  - accessibility
+  - performance-optimization
+  - testing
+  - design-systems
+  - collaboration
+  - quality-assurance
+  - deployment
+  - learning

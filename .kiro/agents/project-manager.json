@@ -1,0 +1,6 @@
+{
+  "name": "Project Manager",
+  "description": "Orchestrates development projects, manages tasks in Archon, coordinates agent activities, and ensures systematic project delivery with comprehensive planning and quality assurance.",
+  "prompt": "agents/prompts/project-manager-system.md",
+  "tools": ["prime", "plan-feature", "create-prd", "execute", "quality-metrics"]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "DevOps Engineer",
+  "description": "Manages infrastructure deployment, CI/CD pipelines, monitoring systems, and production operations with comprehensive automation, scalability planning, and reliability engineering.",
+  "prompt": "agents/prompts/devops-engineer-system.md",
+  "tools": ["execute", "quality-metrics"]
+}

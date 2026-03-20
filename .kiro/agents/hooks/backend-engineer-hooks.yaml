@@ -1,0 +1,540 @@
+# Backend Engineer Agent - Hook Configurations
+
+# Initial Backend Consultation
+consultation:
+  - name: "backend_consultation"
+    description: "Initiate backend development consultation for new projects"
+    trigger:
+      type: "message_pattern"
+      pattern: "(?i)(backend|api|server|node|express|rest|graphql)"
+    action:
+      type: "send_message"
+      message: |
+        🚀 **Backend Engineer Consultation Started**
+        
+        I'll help you design the optimal backend solution for your specific needs:
+        
+        **🔧 API Requirements Questions:**
+        - What type of application are we building?
+          • REST API with standard endpoints
+          • GraphQL API with flexible queries
+          • Microservices architecture
+          • Monolithic application
+          • Hybrid approach
+        
+        - What are the core features and business logic requirements?
+        - Who will be consuming the APIs? (Web frontend, mobile apps, third-party)
+        - What data operations are needed? (CRUD, complex queries, real-time updates)
+        
+        **⚡ Performance & Scalability Questions:**
+        - What are your expected traffic patterns?
+          • Users: 10s, 100s, 1000s+
+          • Requests per second: Low, medium, high volume
+          • Peak load expectations
+        
+        - Performance requirements?
+          • Response times (< 100ms, < 500ms, < 1s)
+          • Throughput needs
+          • Real-time features needed?
+        
+        **🔒 Security & Compliance Questions:**
+        - What authentication methods do you need?
+          • JWT tokens
+          • OAuth (Google, GitHub, etc.)
+          • Session-based authentication
+          • API keys
+        
+        - Authorization patterns required?
+          • Role-based access control (RBAC)
+          • Simple user permissions
+          • Complex business rules
+        
+        - Any compliance requirements? (GDPR, HIPAA, SOX)
+        
+        **🏗️ Technology & Infrastructure Questions:**
+        - Do you have existing backend infrastructure or preferences?
+        - Deployment environment? (Cloud, containers, serverless)
+        - Any technology constraints or organizational standards?
+        - Monitoring and logging requirements?
+        
+        Based on your answers, I'll design a tailored backend architecture with optimal API design, security implementation, and performance optimization!
+      agent: "backend-engineer"
+
+# API Development Hooks
+api_development:
+  - name: "systematic_api_implementation"
+    description: "Execute systematic API development using standardized framework"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execute"
+        - agent: "backend-engineer"
+    action:
+      type: "execute_prompt"
+      prompt: "execute.md"
+      message: "Executing systematic API development with comprehensive validation and quality assurance..."
+      agent: "backend-engineer"
+      include_context:
+        - api_requirements: true
+        - database_schema: true
+        - security_standards: true
+        - performance_targets: true
+
+  - name: "api_endpoint_creation"
+    description: "Handle new API endpoint development tasks"
+    trigger:
+      type: "task_assignment"
+      conditions:
+        - assignee: "Backend Engineer"
+        - keywords: ["api", "endpoint", "route", "controller"]
+        - task_type: ["feature", "enhancement"]
+    action:
+      type: "send_message"
+      message: "API endpoint development task assigned. Use @execute for systematic implementation with comprehensive validation and testing."
+      agent: "backend-engineer"
+      include_context:
+        - api_requirements: true
+        - database_schema: true
+        - authentication_needs: true
+
+  - name: "authentication_implementation"
+    description: "Implement authentication and authorization systems"
+    trigger:
+      type: "task_assignment"
+      conditions:
+        - assignee: "Backend Engineer"
+        - keywords: ["auth", "authentication", "login", "jwt", "security"]
+        - priority: ["high", "critical"]
+    action:
+      type: "send_message"
+      message: "Authentication system task assigned. Implement JWT-based authentication, password hashing, role-based access control, and security middleware. Coordinate with Database Specialist on user schema."
+      agent: "backend-engineer"
+      include_context:
+        - security_requirements: true
+        - user_schema: true
+        - frontend_integration: true
+
+  - name: "business_logic_implementation"
+    description: "Implement complex business logic and validation"
+    trigger:
+      type: "task_assignment"
+      conditions:
+        - assignee: "Backend Engineer"
+        - keywords: ["business logic", "validation", "workflow", "rules"]
+        - complexity: ">= 3"
+    action:
+      type: "send_message"
+      message: "Business logic implementation task assigned. Design service layer, implement validation rules, handle complex workflows, and ensure data integrity. Create comprehensive unit tests."
+      agent: "backend-engineer"
+      include_context:
+        - business_requirements: true
+        - data_relationships: true
+        - validation_rules: true
+
+# Database Integration Hooks
+database_integration:
+  - name: "database_schema_change_adaptation"
+    description: "Adapt APIs to database schema changes"
+    trigger:
+      type: "agent_notification"
+      conditions:
+        - source_agent: "Database Specialist"
+        - notification_type: "schema_change"
+        - impact_level: ["medium", "high"]
+    action:
+      type: "send_message"
+      message: "Database schema changes detected. Review schema modifications, update ORM models, adapt API endpoints, modify validation rules, and test database integration."
+      agent: "backend-engineer"
+      include_context:
+        - schema_changes: true
+        - affected_endpoints: true
+        - migration_details: true
+
+  - name: "query_optimization_request"
+    description: "Optimize database queries for performance"
+    trigger:
+      type: "performance_alert"
+      conditions:
+        - metric_type: "database_query_time"
+        - threshold: "> 500ms"
+        - frequency: "> 10 occurrences/hour"
+    action:
+      type: "send_message"
+      message: "Slow database queries detected in API endpoints. Analyze query performance, optimize ORM queries, implement caching strategies, and coordinate with Database Specialist for index optimization."
+      agent: "backend-engineer"
+      include_context:
+        - slow_queries: true
+        - performance_metrics: true
+        - optimization_opportunities: true
+
+  - name: "data_integrity_validation"
+    description: "Ensure API operations maintain data integrity"
+    trigger:
+      type: "data_integrity_alert"
+      conditions:
+        - alert_type: "constraint_violation"
+        - source: "api_operations"
+        - severity: ["medium", "high"]
+    action:
+      type: "send_message"
+      message: "Data integrity issues detected in API operations. Review validation logic, strengthen input sanitization, implement proper transaction handling, and coordinate with Database Specialist."
+      agent: "backend-engineer"
+      include_context:
+        - integrity_violations: true
+        - affected_endpoints: true
+        - validation_gaps: true
+
+# API Performance Monitoring
+performance_monitoring:
+  - name: "api_performance_degradation"
+    description: "Handle API performance issues"
+    trigger:
+      type: "performance_threshold"
+      conditions:
+        - metric_type: "api_response_time"
+        - threshold: "> 1000ms"
+        - duration: "> 5 minutes"
+    action:
+      type: "send_message"
+      message: "API performance degradation detected. Analyze slow endpoints, identify bottlenecks, implement caching strategies, optimize database queries, and improve response times."
+      agent: "backend-engineer"
+      include_context:
+        - performance_metrics: true
+        - slow_endpoints: true
+        - resource_usage: true
+
+  - name: "high_error_rate_alert"
+    description: "Address high API error rates"
+    trigger:
+      type: "error_rate_threshold"
+      conditions:
+        - metric_type: "api_error_rate"
+        - threshold: "> 5%"
+        - time_window: "15 minutes"
+    action:
+      type: "send_message"
+      message: "High API error rate detected. Investigate error patterns, fix critical bugs, improve error handling, strengthen input validation, and implement better monitoring."
+      agent: "backend-engineer"
+      include_context:
+        - error_logs: true
+        - error_patterns: true
+        - affected_endpoints: true
+
+  - name: "resource_usage_optimization"
+    description: "Optimize API resource usage"
+    trigger:
+      type: "resource_threshold"
+      conditions:
+        - metric_type: ["memory_usage", "cpu_usage"]
+        - threshold: "> 80%"
+        - duration: "> 10 minutes"
+    action:
+      type: "send_message"
+      message: "High resource usage detected in API services. Analyze resource consumption, optimize memory usage, improve algorithm efficiency, and implement resource monitoring."
+      agent: "backend-engineer"
+      include_context:
+        - resource_metrics: true
+        - performance_profiles: true
+        - optimization_opportunities: true
+
+# Security Monitoring
+security_monitoring:
+  - name: "security_vulnerability_detection"
+    description: "Address security vulnerabilities in APIs"
+    trigger:
+      type: "security_alert"
+      conditions:
+        - alert_type: ["injection_attempt", "unauthorized_access", "brute_force"]
+        - severity: ["medium", "high", "critical"]
+    action:
+      type: "send_message"
+      message: "Security vulnerability detected in API endpoints. Investigate security breach, strengthen input validation, improve authentication, implement rate limiting, and enhance security monitoring."
+      agent: "backend-engineer"
+      include_context:
+        - security_logs: true
+        - attack_patterns: true
+        - vulnerable_endpoints: true
+
+  - name: "authentication_failure_spike"
+    description: "Handle authentication failure spikes"
+    trigger:
+      type: "authentication_alert"
+      conditions:
+        - metric_type: "auth_failure_rate"
+        - threshold: "> 20%"
+        - time_window: "10 minutes"
+    action:
+      type: "send_message"
+      message: "High authentication failure rate detected. Investigate authentication issues, check token validation, review security policies, and implement additional security measures."
+      agent: "backend-engineer"
+      include_context:
+        - auth_logs: true
+        - failure_patterns: true
+        - security_metrics: true
+
+  - name: "rate_limit_exceeded"
+    description: "Handle rate limiting and API abuse"
+    trigger:
+      type: "rate_limit_alert"
+      conditions:
+        - alert_type: "rate_limit_exceeded"
+        - frequency: "> 100 occurrences/hour"
+    action:
+      type: "send_message"
+      message: "Rate limiting frequently triggered. Analyze usage patterns, adjust rate limits, implement more sophisticated throttling, and investigate potential API abuse."
+      agent: "backend-engineer"
+      include_context:
+        - usage_patterns: true
+        - rate_limit_logs: true
+        - client_behavior: true
+
+# Team Collaboration Hooks
+team_collaboration:
+  - name: "frontend_integration_support"
+    description: "Support Frontend Architect with API integration"
+    trigger:
+      type: "agent_request"
+      conditions:
+        - requesting_agent: "Frontend Architect"
+        - request_type: ["api_integration", "endpoint_modification", "data_format"]
+    action:
+      type: "send_message"
+      message: "Frontend Architect requesting API support. Analyze integration requirements, modify endpoints if needed, improve response formats, add new endpoints, and provide integration documentation."
+      agent: "backend-engineer"
+      include_context:
+        - integration_requirements: true
+        - current_api_spec: true
+        - frontend_needs: true
+
+  - name: "database_coordination"
+    description: "Coordinate with Database Specialist on schema and queries"
+    trigger:
+      type: "agent_request"
+      conditions:
+        - requesting_agent: "Database Specialist"
+        - request_type: ["query_optimization", "schema_feedback", "performance_analysis"]
+    action:
+      type: "send_message"
+      message: "Database Specialist requesting coordination. Review database queries, provide API usage patterns, optimize query performance, and coordinate on schema changes."
+      agent: "backend-engineer"
+      include_context:
+        - query_patterns: true
+        - performance_requirements: true
+        - api_usage_data: true
+
+  - name: "testing_support"
+    description: "Support Test Orchestrator with API testing"
+    trigger:
+      type: "agent_request"
+      conditions:
+        - requesting_agent: "Test Orchestrator"
+        - request_type: ["test_data", "api_documentation", "test_endpoints"]
+    action:
+      type: "send_message"
+      message: "Test Orchestrator requesting testing support. Provide API documentation, create test endpoints, generate test data, and ensure APIs are testable."
+      agent: "backend-engineer"
+      include_context:
+        - api_documentation: true
+        - test_requirements: true
+        - endpoint_specifications: true
+
+# Development Lifecycle Hooks
+development_lifecycle:
+  - name: "code_review_request"
+    description: "Handle code review requests for API changes"
+    trigger:
+      type: "code_review"
+      conditions:
+        - review_type: "api_changes"
+        - files_changed: ["*.ts", "*.js"]
+        - scope: ["routes", "controllers", "services"]
+    action:
+      type: "send_message"
+      message: "Code review requested for API changes. Review code quality, check security implementations, validate business logic, ensure proper error handling, and verify test coverage."
+      agent: "backend-engineer"
+      include_context:
+        - code_changes: true
+        - review_checklist: true
+        - quality_standards: true
+
+  - name: "deployment_preparation"
+    description: "Prepare APIs for deployment"
+    trigger:
+      type: "pre_deployment"
+      conditions:
+        - deployment_type: ["staging", "production"]
+        - api_changes: true
+    action:
+      type: "send_message"
+      message: "API deployment preparation required. Verify all tests pass, check environment configurations, validate database migrations, ensure proper logging, and coordinate with DevOps Assistant."
+      agent: "backend-engineer"
+      include_context:
+        - deployment_checklist: true
+        - environment_configs: true
+        - migration_status: true
+
+  - name: "post_deployment_monitoring"
+    description: "Monitor APIs after deployment"
+    trigger:
+      type: "post_deployment"
+      conditions:
+        - deployment_type: ["staging", "production"]
+        - api_changes: true
+        - monitoring_duration: "30 minutes"
+    action:
+      type: "send_message"
+      message: "Post-deployment API monitoring required. Check API health, monitor error rates, verify performance metrics, validate functionality, and address any deployment issues."
+      agent: "backend-engineer"
+      include_context:
+        - deployment_results: true
+        - health_metrics: true
+        - error_logs: true
+
+# API Documentation Hooks
+documentation_management:
+  - name: "api_documentation_update"
+    description: "Update API documentation when endpoints change"
+    trigger:
+      type: "api_change"
+      conditions:
+        - change_type: ["new_endpoint", "modified_endpoint", "deprecated_endpoint"]
+        - documentation_required: true
+    action:
+      type: "send_message"
+      message: "API changes require documentation updates. Update OpenAPI/Swagger specs, create endpoint documentation, provide usage examples, and ensure documentation accuracy."
+      agent: "backend-engineer"
+      include_context:
+        - api_changes: true
+        - current_documentation: true
+        - documentation_standards: true
+
+  - name: "api_versioning_management"
+    description: "Handle API versioning and backward compatibility"
+    trigger:
+      type: "api_version_change"
+      conditions:
+        - version_type: ["major", "minor"]
+        - breaking_changes: true
+    action:
+      type: "send_message"
+      message: "API versioning required due to breaking changes. Implement version management, maintain backward compatibility, create migration guides, and coordinate with Frontend Architect."
+      agent: "backend-engineer"
+      include_context:
+        - breaking_changes: true
+        - version_strategy: true
+        - migration_requirements: true
+
+# Error Handling and Recovery
+error_management:
+  - name: "critical_api_error"
+    description: "Handle critical API errors and outages"
+    trigger:
+      type: "critical_error"
+      conditions:
+        - error_type: "api_outage"
+        - severity: "critical"
+        - affected_users: "> 100"
+    action:
+      type: "send_message"
+      message: "Critical API error detected. Immediately investigate root cause, implement emergency fixes, restore service availability, and coordinate incident response."
+      agent: "backend-engineer"
+      include_context:
+        - error_details: true
+        - system_status: true
+        - incident_procedures: true
+
+  - name: "data_corruption_prevention"
+    description: "Prevent and handle data corruption in APIs"
+    trigger:
+      type: "data_integrity_alert"
+      conditions:
+        - alert_type: "potential_corruption"
+        - source: "api_operations"
+        - risk_level: "high"
+    action:
+      type: "send_message"
+      message: "Potential data corruption detected in API operations. Immediately halt risky operations, investigate data integrity, implement safeguards, and coordinate with Database Specialist."
+      agent: "backend-engineer"
+      include_context:
+        - corruption_indicators: true
+        - affected_data: true
+        - recovery_procedures: true
+
+# Manual Control Hooks
+manual_controls:
+  - name: "manual_api_analysis"
+    description: "Perform comprehensive API analysis on demand"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "analyze-api"
+    action:
+      type: "send_message"
+      message: "Manual API analysis requested. Perform comprehensive API review: endpoint performance, security analysis, code quality assessment, documentation completeness, and optimization recommendations."
+      agent: "backend-engineer"
+
+  - name: "manual_performance_optimization"
+    description: "Optimize API performance on demand"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "optimize-api-performance"
+    action:
+      type: "send_message"
+      message: "Manual API performance optimization requested. Analyze performance bottlenecks, optimize slow endpoints, implement caching strategies, and improve overall API efficiency."
+      agent: "backend-engineer"
+
+  - name: "emergency_api_maintenance"
+    description: "Perform emergency API maintenance"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "emergency-api-maintenance"
+        - priority: "critical"
+    action:
+      type: "send_message"
+      message: "Emergency API maintenance requested. Assess critical issues, implement immediate fixes, ensure service stability, and coordinate with team for resolution."
+      agent: "backend-engineer"
+
+  - name: "quality_metrics_collection"
+    description: "Collect backend-specific quality metrics and performance data"
+    trigger:
+      type: "api_deployment"
+      conditions:
+        - deployment_type: ["staging", "production"]
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting backend quality metrics: API performance, security compliance, and code quality..."
+      agent: "backend-engineer"
+      include_context:
+        - api_metrics: true
+        - security_scan_results: true
+        - performance_benchmarks: true
+
+# Configuration
+hook_settings:
+  global:
+    enabled: true
+    log_level: "info"
+    performance_monitoring: true
+    
+  api_development:
+    auto_testing: true
+    documentation_generation: true
+    security_validation: true
+    
+  performance_monitoring:
+    response_time_threshold: "1000ms"
+    error_rate_threshold: "5%"
+    resource_usage_threshold: "80%"
+    
+  security_monitoring:
+    vulnerability_scanning: true
+    authentication_monitoring: true
+    rate_limiting: true
+    
+  team_collaboration:
+    integration_support: true
+    documentation_sharing: true
+    coordination_alerts: true

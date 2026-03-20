@@ -1,0 +1,488 @@
+# Database Specialist Agent - Hook Configurations
+
+# Initial Database Consultation
+consultation:
+  - name: "database_consultation"
+    description: "Initiate database design consultation for new projects"
+    trigger:
+      type: "message_pattern"
+      pattern: "(?i)(database design|schema design|database setup|data modeling|postgresql)"
+    action:
+      type: "send_message"
+      message: |
+        🗄️ **Database Specialist Consultation Started**
+        
+        I'll help you design the optimal database solution for your specific needs:
+        
+        **📊 Data Requirements Questions:**
+        - What type of data will you be storing?
+          • User accounts and profiles
+          • Transactional/business data
+          • Analytics and metrics
+          • Content management
+          • Other (please specify)
+        
+        - What are the core entities and their relationships?
+        - Expected data volumes? (Users, transactions per day, storage growth)
+        - Any data compliance requirements? (GDPR, HIPAA, SOX)
+        
+        **⚡ Performance & Scalability Questions:**
+        - What are your performance expectations?
+          • Response times (< 100ms, < 500ms, < 1s)
+          • Concurrent users (10s, 100s, 1000s+)
+          • Throughput requirements
+        
+        - What are the primary data access patterns?
+          • Read-heavy (analytics, reporting)
+          • Write-heavy (logging, real-time data)
+          • Mixed workload
+          • Batch processing needs
+        
+        **🏗️ Technology & Infrastructure Questions:**
+        - Do you have existing database infrastructure or preferences?
+        - Deployment environment? (Cloud, on-premise, hybrid)
+        - Any technology constraints or organizational standards?
+        - Backup and disaster recovery requirements?
+        
+        **🔗 Integration Requirements:**
+        - How will the database integrate with your application stack?
+        - Need API access, direct connections, or both?
+        - Any third-party integrations or data synchronization needs?
+        - Authentication and authorization requirements?
+        
+        Based on your answers, I'll design a tailored database architecture with optimal schema design, performance tuning, and integration strategies!
+      agent: "database-specialist"
+
+# Schema Management Hooks
+schema_management:
+  - name: "systematic_database_implementation"
+    description: "Execute systematic database development using standardized framework"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execute"
+        - agent: "database-specialist"
+    action:
+      type: "execute_prompt"
+      prompt: "execute.md"
+      message: "Executing systematic database development with comprehensive schema validation and performance optimization..."
+      agent: "database-specialist"
+      include_context:
+        - schema_requirements: true
+        - performance_targets: true
+        - data_integrity_rules: true
+        - migration_strategy: true
+
+  - name: "schema_change_detection"
+    description: "Detect and analyze database schema changes"
+    trigger:
+      type: "file_change"
+      conditions:
+        - file_pattern: ["**/migrations/*.sql", "**/schema/*.sql", "**/prisma/schema.prisma"]
+        - change_type: ["created", "modified"]
+    action:
+      type: "send_message"
+      message: "Database schema change detected. Use @execute for systematic analysis, validation, and implementation with proper safety checks."
+      agent: "database-specialist"
+      include_context:
+        - schema_changes: true
+        - migration_history: true
+        - performance_impact: true
+
+  - name: "migration_creation_request"
+    description: "Handle requests for new database migrations"
+    trigger:
+      type: "task_assignment"
+      conditions:
+        - assignee: "Database Specialist"
+        - task_type: ["migration", "schema"]
+        - keywords: ["database", "schema", "migration", "table"]
+    action:
+      type: "send_message"
+      message: "Database migration task assigned. Analyze requirements, design schema changes, create migration scripts with rollback procedures, and plan deployment strategy."
+      agent: "database-specialist"
+      include_context:
+        - task_requirements: true
+        - current_schema: true
+        - performance_considerations: true
+
+  - name: "schema_validation"
+    description: "Validate schema changes before deployment"
+    trigger:
+      type: "pre_deployment"
+      conditions:
+        - deployment_type: ["staging", "production"]
+        - schema_changes: true
+    action:
+      type: "send_message"
+      message: "Pre-deployment schema validation required. Verify migration safety, check constraint integrity, validate index strategies, and confirm rollback procedures."
+      agent: "database-specialist"
+      include_context:
+        - pending_migrations: true
+        - deployment_environment: true
+        - rollback_plan: true
+
+# Performance Monitoring Hooks
+performance_monitoring:
+  - name: "slow_query_detection"
+    description: "Detect and analyze slow database queries"
+    trigger:
+      type: "performance_threshold"
+      conditions:
+        - metric_type: "query_duration"
+        - threshold: "> 1000ms"
+        - frequency: "> 5 occurrences/hour"
+    action:
+      type: "send_message"
+      message: "Slow query detected exceeding performance thresholds. Analyze query execution plan, identify bottlenecks, recommend indexing strategies, and optimize query structure."
+      agent: "database-specialist"
+      include_context:
+        - query_details: true
+        - execution_plan: true
+        - table_statistics: true
+
+  - name: "index_usage_analysis"
+    description: "Analyze index effectiveness and usage patterns"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "02:00"
+        - days: ["sunday"]
+    action:
+      type: "send_message"
+      message: "Weekly index usage analysis. Review index effectiveness, identify unused indexes, recommend new indexes for common queries, and optimize index strategies."
+      agent: "database-specialist"
+      include_context:
+        - index_statistics: true
+        - query_patterns: true
+        - table_usage: true
+
+  - name: "connection_pool_monitoring"
+    description: "Monitor database connection pool health"
+    trigger:
+      type: "performance_threshold"
+      conditions:
+        - metric_type: "connection_pool_usage"
+        - threshold: "> 80%"
+        - duration: "> 10 minutes"
+    action:
+      type: "send_message"
+      message: "High connection pool usage detected. Analyze connection patterns, identify connection leaks, optimize pool configuration, and recommend scaling strategies."
+      agent: "database-specialist"
+      include_context:
+        - connection_metrics: true
+        - pool_configuration: true
+        - application_patterns: true
+
+# Data Integrity Hooks
+data_integrity:
+  - name: "constraint_violation_detection"
+    description: "Handle database constraint violations"
+    trigger:
+      type: "database_error"
+      conditions:
+        - error_type: ["foreign_key_violation", "unique_violation", "check_constraint"]
+        - frequency: "> 3 occurrences/hour"
+    action:
+      type: "send_message"
+      message: "Database constraint violations detected. Investigate data integrity issues, analyze violation patterns, recommend schema improvements, and coordinate with Backend Engineer for application fixes."
+      agent: "database-specialist"
+      include_context:
+        - error_details: true
+        - violation_patterns: true
+        - affected_tables: true
+
+  - name: "data_corruption_check"
+    description: "Regular data integrity verification"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "03:00"
+        - days: ["monday", "wednesday", "friday"]
+    action:
+      type: "send_message"
+      message: "Scheduled data integrity check. Verify referential integrity, check for orphaned records, validate constraint compliance, and report any data inconsistencies."
+      agent: "database-specialist"
+      include_context:
+        - integrity_checks: true
+        - constraint_status: true
+        - data_statistics: true
+
+  - name: "backup_verification"
+    description: "Verify database backup integrity and recovery procedures"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "04:00"
+        - day: "saturday"
+    action:
+      type: "send_message"
+      message: "Weekly backup verification. Test backup integrity, verify recovery procedures, check backup completeness, and update disaster recovery documentation."
+      agent: "database-specialist"
+      include_context:
+        - backup_status: true
+        - recovery_metrics: true
+        - backup_history: true
+
+# Migration Management Hooks
+migration_management:
+  - name: "migration_execution"
+    description: "Execute database migrations with monitoring"
+    trigger:
+      type: "deployment_start"
+      conditions:
+        - deployment_type: ["staging", "production"]
+        - migration_pending: true
+    action:
+      type: "send_message"
+      message: "Database migration execution starting. Monitor migration progress, verify data integrity during migration, prepare rollback if needed, and coordinate with DevOps Assistant."
+      agent: "database-specialist"
+      include_context:
+        - migration_scripts: true
+        - rollback_procedures: true
+        - deployment_environment: true
+
+  - name: "migration_rollback_trigger"
+    description: "Handle migration rollback scenarios"
+    trigger:
+      type: "deployment_failure"
+      conditions:
+        - failure_type: "database_migration"
+        - rollback_required: true
+    action:
+      type: "send_message"
+      message: "Migration rollback required due to deployment failure. Execute rollback procedures, verify data integrity post-rollback, investigate failure cause, and coordinate recovery with team."
+      agent: "database-specialist"
+      include_context:
+        - failure_details: true
+        - rollback_scripts: true
+        - data_state: true
+
+  - name: "post_migration_validation"
+    description: "Validate database state after successful migration"
+    trigger:
+      type: "deployment_success"
+      conditions:
+        - deployment_type: ["staging", "production"]
+        - migration_executed: true
+    action:
+      type: "send_message"
+      message: "Post-migration validation required. Verify schema changes applied correctly, check data integrity, validate constraint functionality, and update documentation."
+      agent: "database-specialist"
+      include_context:
+        - migration_results: true
+        - schema_state: true
+        - data_validation: true
+
+# Collaboration Hooks
+team_collaboration:
+  - name: "backend_integration_support"
+    description: "Support Backend Engineer with database integration"
+    trigger:
+      type: "agent_request"
+      conditions:
+        - requesting_agent: "Backend Engineer"
+        - request_type: ["query_optimization", "schema_question", "performance_issue"]
+    action:
+      type: "send_message"
+      message: "Backend Engineer requesting database support. Analyze their requirements, provide query optimization guidance, suggest schema improvements, and coordinate integration approach."
+      agent: "database-specialist"
+      include_context:
+        - request_details: true
+        - current_implementation: true
+        - performance_requirements: true
+
+  - name: "frontend_data_requirements"
+    description: "Support Frontend Architect with data structure needs"
+    trigger:
+      type: "agent_request"
+      conditions:
+        - requesting_agent: "Frontend Architect"
+        - request_type: ["data_structure", "api_optimization", "real_time_data"]
+    action:
+      type: "send_message"
+      message: "Frontend Architect requesting data support. Analyze frontend data requirements, optimize database queries for UI needs, design efficient data structures, and coordinate with Backend Engineer."
+      agent: "database-specialist"
+      include_context:
+        - frontend_requirements: true
+        - current_queries: true
+        - performance_targets: true
+
+  - name: "test_data_provision"
+    description: "Provide test data and fixtures for testing"
+    trigger:
+      type: "agent_request"
+      conditions:
+        - requesting_agent: "Test Orchestrator"
+        - request_type: ["test_data", "fixtures", "database_setup"]
+    action:
+      type: "send_message"
+      message: "Test Orchestrator requesting test database support. Create test data fixtures, set up test database schemas, provide data seeding scripts, and ensure test isolation."
+      agent: "database-specialist"
+      include_context:
+        - test_requirements: true
+        - schema_structure: true
+        - data_relationships: true
+
+# Maintenance Hooks
+database_maintenance:
+  - name: "routine_maintenance"
+    description: "Perform routine database maintenance tasks"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "01:00"
+        - day: "sunday"
+    action:
+      type: "send_message"
+      message: "Weekly database maintenance window. Perform VACUUM ANALYZE, update table statistics, check index bloat, optimize query plans, and review performance metrics."
+      agent: "database-specialist"
+      include_context:
+        - maintenance_checklist: true
+        - performance_history: true
+        - system_health: true
+
+  - name: "storage_monitoring"
+    description: "Monitor database storage usage and growth"
+    trigger:
+      type: "performance_threshold"
+      conditions:
+        - metric_type: "storage_usage"
+        - threshold: "> 80%"
+    action:
+      type: "send_message"
+      message: "Database storage usage approaching capacity limits. Analyze storage growth patterns, identify large tables, recommend archiving strategies, and coordinate with DevOps for scaling."
+      agent: "database-specialist"
+      include_context:
+        - storage_metrics: true
+        - growth_patterns: true
+        - table_sizes: true
+
+  - name: "security_audit"
+    description: "Regular database security audit"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "05:00"
+        - day: "first_monday_of_month"
+    action:
+      type: "send_message"
+      message: "Monthly database security audit. Review user permissions, check access logs, validate security configurations, update security policies, and report security status."
+      agent: "database-specialist"
+      include_context:
+        - security_configuration: true
+        - access_patterns: true
+        - audit_logs: true
+
+# Development Support Hooks
+development_support:
+  - name: "new_feature_database_planning"
+    description: "Plan database changes for new features"
+    trigger:
+      type: "feature_planning"
+      conditions:
+        - feature_type: ["user_management", "data_storage", "analytics"]
+        - database_changes_required: true
+    action:
+      type: "send_message"
+      message: "New feature requires database changes. Analyze feature requirements, design schema modifications, plan migration strategy, and coordinate with development team."
+      agent: "database-specialist"
+      include_context:
+        - feature_requirements: true
+        - current_schema: true
+        - integration_points: true
+
+  - name: "performance_optimization_request"
+    description: "Handle performance optimization requests"
+    trigger:
+      type: "performance_issue"
+      conditions:
+        - issue_type: "database_performance"
+        - severity: ["medium", "high", "critical"]
+    action:
+      type: "send_message"
+      message: "Database performance optimization requested. Analyze performance bottlenecks, identify optimization opportunities, implement improvements, and monitor results."
+      agent: "database-specialist"
+      include_context:
+        - performance_metrics: true
+        - query_analysis: true
+        - system_resources: true
+
+# Manual Control Hooks
+manual_controls:
+  - name: "manual_schema_analysis"
+    description: "Perform comprehensive schema analysis on demand"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "analyze-schema"
+    action:
+      type: "send_message"
+      message: "Manual schema analysis requested. Perform comprehensive schema review, identify optimization opportunities, check normalization, validate constraints, and provide recommendations."
+      agent: "database-specialist"
+
+  - name: "manual_performance_review"
+    description: "Conduct detailed performance review"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "db-performance-review"
+    action:
+      type: "send_message"
+      message: "Manual database performance review requested. Analyze query performance, review index effectiveness, check resource utilization, and provide optimization recommendations."
+      agent: "database-specialist"
+
+  - name: "emergency_database_support"
+    description: "Provide emergency database support"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "db-emergency"
+        - priority: "critical"
+    action:
+      type: "send_message"
+      message: "Emergency database support requested. Immediately assess database health, identify critical issues, implement emergency fixes, and coordinate with team for resolution."
+      agent: "database-specialist"
+
+  - name: "quality_metrics_collection"
+    description: "Collect database-specific quality metrics and performance data"
+    trigger:
+      type: "schema_deployment"
+      conditions:
+        - deployment_type: ["staging", "production"]
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting database quality metrics: query performance, data integrity, and optimization opportunities..."
+      agent: "database-specialist"
+      include_context:
+        - query_performance: true
+        - data_integrity_checks: true
+        - optimization_metrics: true
+
+# Configuration
+hook_settings:
+  global:
+    enabled: true
+    log_level: "info"
+    database_monitoring: true
+    
+  schema_management:
+    auto_validation: true
+    migration_safety_checks: true
+    documentation_updates: true
+    
+  performance_monitoring:
+    slow_query_threshold: "1000ms"
+    index_analysis_frequency: "weekly"
+    connection_pool_alerts: true
+    
+  data_integrity:
+    constraint_monitoring: true
+    backup_verification: true
+    corruption_checks: true
+    
+  maintenance:
+    routine_maintenance: true
+    storage_monitoring: true
+    security_audits: true

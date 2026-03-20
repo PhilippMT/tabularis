@@ -1,0 +1,6 @@
+{
+  "name": "Backend Engineer",
+  "description": "Develops robust backend systems, APIs, and business logic with comprehensive validation, security implementation, and performance optimization using systematic development practices.",
+  "prompt": "agents/prompts/backend-engineer-system.md",
+  "tools": ["execute", "quality-metrics"]
+}

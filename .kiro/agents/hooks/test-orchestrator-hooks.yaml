@@ -1,0 +1,380 @@
+# Test Orchestrator Agent - Hook Configurations
+
+# Initial Testing Consultation
+consultation:
+  - name: "testing_consultation"
+    description: "Initiate testing strategy consultation for new projects"
+    trigger:
+      type: "message_pattern"
+      pattern: "(?i)(testing|test|quality|qa|jest|cypress|playwright)"
+    action:
+      type: "send_message"
+      message: |
+        🧪 **Test Orchestrator Consultation Started**
+        
+        I'll help you design the optimal testing strategy for your specific needs:
+        
+        **🎯 Quality Requirements Questions:**
+        - What are your quality standards and risk tolerance?
+          • High reliability (comprehensive testing, strict quality gates)
+          • Balanced approach (pragmatic testing, reasonable coverage)
+          • Rapid iteration (lightweight testing, fast feedback)
+          • Custom requirements
+        
+        - What types of testing are most important?
+          • Unit testing (component/function level)
+          • Integration testing (component interaction)
+          • End-to-end testing (user journey validation)
+          • Performance testing (load, stress, benchmarking)
+          • Security testing (vulnerability scanning)
+          • Accessibility testing (WCAG compliance)
+        
+        **📋 Project Context Questions:**
+        - What's your development methodology?
+          • Test-Driven Development (TDD)
+          • Behavior-Driven Development (BDD)
+          • Traditional testing (test after development)
+          • Exploratory testing focus
+        
+        - Release frequency and deployment strategy?
+          • Continuous deployment
+          • Weekly/bi-weekly releases
+          • Milestone-based releases
+          • Custom schedule
+        
+        - Team's testing experience level?
+          • Beginner (need guidance and training)
+          • Intermediate (some testing experience)
+          • Advanced (experienced with testing practices)
+        
+        **🛠️ Technical Infrastructure Questions:**
+        - Do you have existing testing infrastructure or tool preferences?
+        - CI/CD setup? (GitHub Actions, Jenkins, GitLab CI, other)
+        - What environments need testing? (Local, staging, production-like)
+        - Browser/device support requirements?
+        
+        **📊 Coverage & Scope Questions:**
+        - What parts of the application are most critical to test?
+        - Target test coverage percentage? (80%, 90%, or risk-based)
+        - Need performance testing? (Load testing, stress testing, benchmarks)
+        - Desired automation level? (Fully automated, mixed, manual focus)
+        
+        Based on your answers, I'll design a comprehensive testing strategy with the right tools, coverage levels, and automation approach!
+      agent: "test-orchestrator"
+
+# Systematic Testing Implementation
+systematic_testing:
+  - name: "systematic_testing_implementation"
+    description: "Execute systematic testing using standardized framework"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execute"
+        - agent: "test-orchestrator"
+    action:
+      type: "execute_prompt"
+      prompt: "execute-testing.md"
+      message: "Executing systematic testing implementation with comprehensive quality validation and coverage analysis..."
+      agent: "test-orchestrator"
+      include_context:
+        - testing_requirements: true
+        - quality_standards: true
+        - coverage_targets: true
+        - performance_benchmarks: true
+
+# Testing Lifecycle Hooks
+testing_lifecycle:
+  - name: "test_execution_trigger"
+    description: "Trigger comprehensive testing when code changes are detected"
+    trigger:
+      type: "file_change"
+      conditions:
+        - file_pattern: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+        - change_type: ["modified", "created"]
+    action:
+      type: "send_message"
+      message: |
+        🔍 **Code Changes Detected - Testing Analysis Required**
+        
+        I'll analyze the changes and determine appropriate testing strategy:
+        
+        **Automated Testing Checklist:**
+        - Run affected unit tests
+        - Execute integration tests for modified components
+        - Trigger E2E tests for critical user paths
+        - Validate code coverage thresholds
+        - Check for regression in existing functionality
+        
+        **Quality Gates:**
+        - All tests must pass before deployment
+        - Coverage thresholds must be maintained
+        - Performance benchmarks must not regress
+        - Security scans must show no new vulnerabilities
+        
+        Initiating test execution and quality validation...
+      agent: "test-orchestrator"
+
+  - name: "feature_completion_testing"
+    description: "Comprehensive testing when features are marked as complete"
+    trigger:
+      type: "task_status_change"
+      conditions:
+        - status: "done"
+        - task_type: ["feature", "enhancement"]
+    action:
+      type: "send_message"
+      message: |
+        ✅ **Feature Completion - Quality Validation Required**
+        
+        Feature marked as complete. Initiating comprehensive quality validation:
+        
+        **Testing Validation:**
+        - Unit test coverage for new functionality
+        - Integration tests for component interactions
+        - E2E tests for complete user workflows
+        - Performance impact assessment
+        - Accessibility compliance verification
+        - Cross-browser compatibility testing
+        
+        **Quality Metrics:**
+        - Code coverage analysis
+        - Test execution results
+        - Performance benchmark comparison
+        - Security vulnerability scan
+        - Documentation completeness check
+        
+        Generating comprehensive quality report...
+      agent: "test-orchestrator"
+
+# Quality Assurance Hooks
+quality_assurance:
+  - name: "code_review_execution"
+    description: "Execute systematic code review using standardized prompts"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "code-review"
+        - parameters: ["scope"]
+    action:
+      type: "execute_prompt"
+      prompt: "code-review.md"
+      message: "Initiating comprehensive code review with systematic quality assessment..."
+      agent: "test-orchestrator"
+      include_context:
+        - code_changes: true
+        - quality_standards: true
+        - testing_requirements: true
+
+  - name: "execution_report_generation"
+    description: "Generate comprehensive implementation reports for system review"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execution-report"
+        - command: "implementation-report"
+    action:
+      type: "execute_prompt"
+      prompt: "execution-report.md"
+      message: "Generating comprehensive execution report for system review and process improvement..."
+      agent: "test-orchestrator"
+      include_context:
+        - implementation_details: true
+        - quality_metrics: true
+        - testing_results: true
+
+  - name: "hackathon_evaluation"
+    description: "Comprehensive project evaluation against hackathon judging criteria"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "hackathon-review"
+        - command: "project-evaluation"
+    action:
+      type: "execute_prompt"
+      prompt: "code-review-hackathon.md"
+      message: "Evaluating project against comprehensive hackathon judging criteria..."
+      agent: "test-orchestrator"
+      include_context:
+        - project_scope: true
+        - documentation_quality: true
+        - innovation_factors: true
+
+  - name: "deployment_readiness_check"
+    description: "Final quality validation before deployment"
+    trigger:
+      type: "message_pattern"
+      pattern: "(?i)(deploy|deployment|release|production)"
+    action:
+      type: "send_message"
+      message: |
+        🚀 **Deployment Readiness Assessment**
+        
+        Performing final quality validation before deployment:
+        
+        **Pre-Deployment Quality Gates:**
+        - ✅ All unit tests passing
+        - ✅ Integration tests successful
+        - ✅ E2E tests covering critical paths
+        - ✅ Performance benchmarks within acceptable range
+        - ✅ Security scans showing no critical vulnerabilities
+        - ✅ Accessibility compliance verified
+        - ✅ Code coverage meeting target thresholds
+        
+        **Risk Assessment:**
+        - Impact analysis of changes
+        - Rollback procedure validation
+        - Monitoring and alerting readiness
+        - Database migration safety check
+        
+        **Recommendation:** [PASS/FAIL] based on quality gate results
+        
+        Use @code-review for comprehensive quality assessment before deployment.
+      agent: "test-orchestrator"
+
+  - name: "bug_detection_workflow"
+    description: "Systematic bug tracking and resolution workflow"
+    trigger:
+      type: "test_failure"
+      conditions:
+        - failure_type: ["unit", "integration", "e2e"]
+        - severity: ["high", "critical"]
+    action:
+      type: "send_message"
+      message: |
+        🐛 **Bug Detection - Quality Issue Identified**
+        
+        Test failure detected requiring immediate attention:
+        
+        **Bug Analysis:**
+        - Test failure details and stack trace
+        - Impact assessment (affected functionality)
+        - Root cause analysis recommendations
+        - Regression risk evaluation
+        
+        **Resolution Workflow:**
+        - Assign to appropriate development agent
+        - Create detailed bug report with reproduction steps
+        - Establish fix priority based on severity and impact
+        - Plan regression testing after fix implementation
+        
+        **Quality Impact:**
+        - Block deployment until resolution
+        - Update quality metrics and tracking
+        - Review testing gaps that allowed the issue
+        - Implement additional tests to prevent recurrence
+        
+        Initiating bug resolution workflow...
+      agent: "test-orchestrator"
+
+# Performance and Load Testing
+performance_testing:
+  - name: "performance_regression_check"
+    description: "Monitor for performance regressions in new code"
+    trigger:
+      type: "performance_threshold"
+      conditions:
+        - metric_type: ["response_time", "memory_usage", "cpu_usage"]
+        - threshold_exceeded: true
+    action:
+      type: "send_message"
+      message: |
+        ⚡ **Performance Regression Detected**
+        
+        Performance metrics have exceeded acceptable thresholds:
+        
+        **Performance Analysis:**
+        - Identify specific performance bottlenecks
+        - Compare current metrics with baseline
+        - Analyze impact on user experience
+        - Determine if regression is acceptable or requires fix
+        
+        **Optimization Recommendations:**
+        - Code optimization opportunities
+        - Database query improvements
+        - Caching strategy enhancements
+        - Infrastructure scaling considerations
+        
+        **Quality Impact:**
+        - Performance test results documentation
+        - Recommendation for deployment approval
+        - Long-term performance monitoring setup
+        - Performance budget establishment
+        
+        Generating detailed performance analysis report...
+      agent: "test-orchestrator"
+
+# Continuous Improvement
+continuous_improvement:
+  - name: "testing_metrics_analysis"
+    description: "Regular analysis of testing effectiveness and improvements"
+    trigger:
+      type: "schedule"
+      conditions:
+        - frequency: "weekly"
+        - day: "friday"
+    action:
+      type: "send_message"
+      message: |
+        📊 **Weekly Testing Metrics Analysis**
+        
+        Analyzing testing effectiveness and identifying improvement opportunities:
+        
+        **Quality Metrics Review:**
+        - Test coverage trends and gaps
+        - Test execution time and efficiency
+        - Bug detection rate and severity distribution
+        - False positive/negative rates in automated tests
+        
+        **Process Effectiveness:**
+        - Developer adoption of testing practices
+        - Quality gate effectiveness
+        - Time to feedback for test results
+        - Testing tool performance and reliability
+        
+        **Improvement Recommendations:**
+        - Testing process optimizations
+        - Tool upgrades or replacements
+        - Training needs identification
+        - Quality standard adjustments
+        
+        **Action Items:**
+        - Update testing documentation
+        - Schedule team training sessions
+        - Implement process improvements
+        - Plan tool evaluations or upgrades
+        
+        Preparing comprehensive testing effectiveness report...
+      agent: "test-orchestrator"
+
+  - name: "quality_metrics_collection"
+    description: "Collect testing and quality assurance metrics"
+    trigger:
+      type: "testing_cycle_completion"
+      conditions:
+        - cycle_type: ["feature", "regression", "performance"]
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting testing quality metrics: coverage, effectiveness, and defect detection..."
+      agent: "test-orchestrator"
+      include_context:
+        - test_results: true
+        - coverage_analysis: true
+        - quality_indicators: true
+
+# Hook Configuration Metadata
+metadata:
+  agent: "test-orchestrator"
+  version: "1.0"
+  created: "2026-01-04"
+  description: "Comprehensive hook configuration for Test Orchestrator Agent covering testing strategy, quality assurance, performance monitoring, and continuous improvement"
+
+# Hook Categories
+categories:
+  - consultation
+  - testing-lifecycle
+  - quality-assurance
+  - performance-testing
+  - continuous-improvement
+  - bug-tracking
+  - deployment-readiness

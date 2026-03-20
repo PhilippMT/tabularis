@@ -1,0 +1,386 @@
+# Context Module Manifest
+# Progressive Disclosure System for Kiro Agent Team
+#
+# This manifest defines all context modules and their loading triggers.
+# Agents should load modules based on task keywords and requirements.
+
+version: "1.0"
+description: "Progressive context loading system to reduce context rot"
+
+# Modules always loaded (minimal core context)
+always_load:
+  - core/philosophy.md
+  - core/ai-guidelines.md
+
+# Conditional modules loaded based on task signals
+modules:
+  # React 19 Context
+  - id: react19-features
+    path: react/react19-features.md
+    keywords:
+      - react
+      - component
+      - jsx
+      - tsx
+      - frontend
+      - ui
+      - useEffect
+      - useState
+      - ReactElement
+      - Actions
+      - Suspense
+    agents:
+      - frontend-architect
+      - ui-ux-designer
+    load_for_tasks:
+      - component creation
+      - frontend development
+      - UI implementation
+
+  # TypeScript Strict Mode
+  - id: typescript-strict
+    path: typescript/typescript-strict.md
+    keywords:
+      - typescript
+      - type error
+      - strict
+      - noImplicitAny
+      - type safety
+      - interface
+      - generic
+      - branded
+      - tsconfig
+    agents:
+      - all
+    load_for_tasks:
+      - type errors
+      - typescript configuration
+      - type definitions
+
+  # Zod Validation
+  - id: validation-zod
+    path: validation/validation-zod.md
+    keywords:
+      - zod
+      - validation
+      - schema
+      - parse
+      - safeParse
+      - form
+      - input
+      - api response
+      - external data
+    agents:
+      - backend-engineer
+      - frontend-architect
+    load_for_tasks:
+      - form handling
+      - API integration
+      - data validation
+
+  # Testing Strategy
+  - id: testing-strategy
+    path: testing/testing-strategy.md
+    keywords:
+      - test
+      - vitest
+      - jest
+      - coverage
+      - spec
+      - testing
+      - TDD
+      - mock
+      - SonarQube
+    agents:
+      - test-orchestrator
+      - all
+    load_for_tasks:
+      - test creation
+      - quality assurance
+      - coverage improvement
+
+  # Component Guidelines
+  - id: component-guidelines
+    path: quality/component-guidelines.md
+    keywords:
+      - JSDoc
+      - documentation
+      - component
+      - props
+      - interface
+      - ARIA
+      - accessibility
+    agents:
+      - frontend-architect
+      - ui-ux-designer
+    load_for_tasks:
+      - component documentation
+      - prop definitions
+      - accessibility
+
+  # Code Style
+  - id: code-style
+    path: quality/code-style.md
+    keywords:
+      - eslint
+      - prettier
+      - lint
+      - format
+      - style
+      - sonarjs
+    agents:
+      - all
+    load_for_tasks:
+      - linting issues
+      - code formatting
+      - style violations
+
+  # Pre-commit Checklist
+  - id: pre-commit
+    path: quality/pre-commit.md
+    keywords:
+      - commit
+      - checklist
+      - pre-commit
+      - review
+      - merge
+      - PR
+    agents:
+      - all
+    load_for_tasks:
+      - before commit
+      - pull request
+      - final review
+
+  # State Management
+  - id: state-management
+    path: state/state-management.md
+    keywords:
+      - state
+      - useState
+      - context
+      - zustand
+      - TanStack
+      - react-query
+      - useQuery
+    agents:
+      - frontend-architect
+    load_for_tasks:
+      - state management
+      - data fetching
+      - caching
+
+  # Security
+  - id: security
+    path: security/security.md
+    keywords:
+      - security
+      - auth
+      - authentication
+      - authorization
+      - XSS
+      - CSRF
+      - injection
+      - sanitize
+    agents:
+      - security-specialist
+      - backend-engineer
+    load_for_tasks:
+      - security implementation
+      - authentication
+      - vulnerability fix
+
+  # Reflection (GEPA)
+  - id: reflection
+    path: core/reflection.md
+    keywords:
+      - reflection
+      - self-correction
+      - prompt optimization
+      - GEPA
+      - retrospective
+      - root cause
+    agents:
+      - development-logger
+    load_for_tasks:
+      - trajectory analysis
+      - error diagnosis
+      - prompt evolution
+
+  # Performance
+  - id: performance
+    path: performance/performance.md
+    keywords:
+      - performance
+      - optimization
+      - bundle
+      - lazy
+      - code splitting
+      - memoization
+    agents:
+      - frontend-architect
+      - devops-engineer
+    load_for_tasks:
+      - performance optimization
+      - bundle analysis
+      - loading speed
+
+  # Project Structure
+  - id: project-structure
+    path: structure/project-structure.md
+    keywords:
+      - structure
+      - architecture
+      - directory
+      - organization
+      - vertical slice
+      - feature
+    agents:
+      - project-manager
+      - all
+    load_for_tasks:
+      - project setup
+      - architecture planning
+      - file organization
+
+  # Agent-Specific Examples
+
+  - id: backend-engineer-examples
+    path: agents/backend-engineer-examples.md
+    keywords:
+      - api example
+      - backend code
+      - authentication example
+      - error handling
+      - caching
+      - permission
+    agents:
+      - backend-engineer
+    load_for_tasks:
+      - backend implementation
+      - api code examples
+
+  - id: project-manager-examples
+    path: agents/project-manager-examples.md
+    keywords:
+      - task template
+      - sprint planning
+      - status report
+      - risk register
+      - handoff
+    agents:
+      - project-manager
+    load_for_tasks:
+      - project planning
+      - team coordination
+      - reporting
+
+  - id: frontend-architect-examples
+    path: agents/frontend-architect-examples.md
+    keywords:
+      - component example
+      - react hook
+      - form component
+      - modal
+      - responsive
+    agents:
+      - frontend-architect
+    load_for_tasks:
+      - component development
+      - frontend patterns
+
+  - id: database-specialist-examples
+    path: agents/database-specialist-examples.md
+    keywords:
+      - schema example
+      - migration
+      - sql query
+      - index
+      - trigger
+      - RLS
+    agents:
+      - database-specialist
+    load_for_tasks:
+      - database design
+      - query optimization
+      - migrations
+
+  - id: devops-engineer-examples
+    path: agents/devops-engineer-examples.md
+    keywords:
+      - github actions
+      - dockerfile
+      - terraform
+      - kubernetes
+      - pipeline
+    agents:
+      - devops-engineer
+    load_for_tasks:
+      - ci/cd setup
+      - infrastructure
+      - deployment
+
+  - id: security-specialist-examples
+    path: agents/security-specialist-examples.md
+    keywords:
+      - jwt example
+      - authorization
+      - rate limiting
+      - csrf
+      - security headers
+    agents:
+      - security-specialist
+    load_for_tasks:
+      - security implementation
+      - authentication setup
+
+  - id: ui-ux-designer-examples
+    path: agents/ui-ux-designer-examples.md
+    keywords:
+      - persona
+      - user journey
+      - design system
+      - accessibility checklist
+      - usability test
+    agents:
+      - ui-ux-designer
+    load_for_tasks:
+      - design planning
+      - user research
+      - accessibility review
+
+  - id: test-orchestrator-examples
+    path: agents/test-orchestrator-examples.md
+    keywords:
+      - test example
+      - vitest
+      - playwright
+      - accessibility test
+      - test setup
+    agents:
+      - test-orchestrator
+    load_for_tasks:
+      - test implementation
+      - test configuration
+
+  - id: development-logger-examples
+    path: agents/development-logger-examples.md
+    keywords:
+      - devlog
+      - session metrics
+      - weekly report
+      - problem resolution
+    agents:
+      - development-logger
+    load_for_tasks:
+      - session logging
+      - metrics collection
+      - reporting
+
+# Usage Instructions for Agents
+usage: |
+  1. Always load modules from 'always_load' section
+  2. Scan user request for keywords matching module triggers
+  3. Load matching modules using: @context [module-id]
+  4. For complex tasks, load multiple relevant modules
+  5. When unsure, ask user which context is relevant

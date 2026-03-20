@@ -1,0 +1,6 @@
+{
+  "name": "Security Specialist",
+  "description": "Implements comprehensive security measures, conducts vulnerability assessments, ensures compliance standards, and provides systematic security analysis with threat mitigation and incident response capabilities.",
+  "prompt": "agents/prompts/security-specialist-system.md",
+  "tools": ["execute", "rca", "implement-fix", "code-review-security", "quality-metrics"]
+}

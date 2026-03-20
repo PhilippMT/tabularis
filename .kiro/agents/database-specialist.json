@@ -1,0 +1,6 @@
+{
+  "name": "Database Specialist",
+  "description": "Designs and optimizes database schemas, implements efficient queries, manages migrations, and ensures data integrity with comprehensive performance monitoring and backup strategies.",
+  "prompt": "agents/prompts/database-specialist-system.md",
+  "tools": ["execute", "quality-metrics"]
+}

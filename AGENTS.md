@@ -1,88 +1,84 @@
-# AGENTS.md
+# CLAUDE.md
 
-## Directives
-Adhere to the rules defined in the [rules directory](./.rules/):
-- [General Rules](./.rules/general.md) (Logging & Language)
-- [TypeScript Rules](./.rules/typescript.md)
-- [React Rules](./.rules/react.md)
-- [Modal Styling Rules](./.rules/modals.md) (Modal component structure and styling)
-- [Testing Conventions](./.rules/testing.md) (Test file organization and structure)
+Guidance for Claude Code when working with React 19 applications.
 
-<!-- gitnexus:start -->
-# GitNexus — Code Intelligence
+> **Progressive Disclosure**: This file contains core principles (~100 lines). Detailed guidance loads on-demand from `.kiro/context/`. Use `@context [module]` to load specific modules.
 
-This project is indexed by GitNexus as **tabularis** (3116 symbols, 7721 relationships, 242 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+## Core Philosophy
 
-> If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
+- **KISS**: Choose straightforward solutions over complex ones
+- **YAGNI**: Implement features only when needed, not speculatively
+- **Component-First**: Single responsibility, co-located tests/styles
+- **Performance by Default**: Trust React 19 compiler, write clean code
+- **Vertical Slice Architecture**: Organize by features, not layers
+- **Fail Fast**: Validate inputs early with Zod, throw errors immediately
 
-## Always Do
+## Critical Rules (MUST FOLLOW)
 
-- **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
-- **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
-- **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
-- When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
-- When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
+1.  **TypeScript**: Strict mode, NEVER use `any`, explicit return types
+2.  **Validation**: Use Zod for ALL external data (APIs, forms, URLs)
+3.  **Testing**: MINIMUM 80% coverage, co-locate in `__tests__/`
+4.  **Components**: MAX 200 lines, handle ALL states (loading/error/empty/success)
+5.  **Documentation**: JSDoc for ALL exports, `@fileoverview` in each file
+6.  **Commits**: Semantic format (feat:, fix:, docs:, refactor:, test:)
+7.  **STATE PROTOCOL**: You **MUST** read `.kiro/TEAM_STATE.md` on activation and **MUST** update it before handoff.
 
-## When Debugging
+## React 19 Essentials
 
-1. `gitnexus_query({query: "<error or symptom>"})` — find execution flows related to the issue
-2. `gitnexus_context({name: "<suspect function>"})` — see all callers, callees, and process participation
-3. `READ gitnexus://repo/tabularis/process/{processName}` — trace the full execution flow step by step
-4. For regressions: `gitnexus_detect_changes({scope: "compare", base_ref: "main"})` — see what your branch changed
+- Use `ReactElement` (not `JSX.Element`) for return types
+- Use Actions API with `useActionState` for forms
+- Let compiler handle optimization (no manual memo)
+- Use Suspense for async operations
 
-## When Refactoring
+## Quick Reference
 
-- **Renaming**: MUST use `gitnexus_rename({symbol_name: "old", new_name: "new", dry_run: true})` first. Review the preview — graph edits are safe, text_search edits need manual review. Then run with `dry_run: false`.
-- **Extracting/Splitting**: MUST run `gitnexus_context({name: "target"})` to see all incoming/outgoing refs, then `gitnexus_impact({target: "target", direction: "upstream"})` to find all external callers before moving code.
-- After any refactor: run `gitnexus_detect_changes({scope: "all"})` to verify only expected files changed.
+| Task | Context Module |
+|------|----------------|
+| Components/UI | `@context react19-features` |
+| TypeScript issues | `@context typescript-strict` |
+| Forms/validation | `@context validation-zod` |
+| Testing | `@context testing-strategy` |
+| State management | `@context state-management` |
+| Security/auth | `@context security` |
+| Before commit | `@context pre-commit` |
 
-## Never Do
+## AI Guidelines
 
-- NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
-- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
-- NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
-- NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
+- Check existing patterns before implementing new ones
+- Use `rg` (ripgrep) instead of `grep` or `find`
+- Use Archon MCP for task management and RAG research
+- Run tests with `npx vitest` (not `npm run test`)
 
-## Tools Quick Reference
+## Forbidden Practices
 
-| Tool | When to use | Command |
-|------|-------------|---------|
-| `query` | Find code by concept | `gitnexus_query({query: "auth validation"})` |
-| `context` | 360-degree view of one symbol | `gitnexus_context({name: "validateUser"})` |
-| `impact` | Blast radius before editing | `gitnexus_impact({target: "X", direction: "upstream"})` |
-| `detect_changes` | Pre-commit scope check | `gitnexus_detect_changes({scope: "staged"})` |
-| `rename` | Safe multi-file rename | `gitnexus_rename({symbol_name: "old", new_name: "new", dry_run: true})` |
-| `cypher` | Custom graph queries | `gitnexus_cypher({query: "MATCH ..."})` |
+- `any` type (use `unknown` if truly unknown)
+- `JSX.Element` (use `ReactElement`)
+- `undefined` to optional props (use conditional spreads)
+- Skipping tests or documentation
+- `@ts-ignore` / `@ts-expect-error`
+- `console.log` in committed code
 
-## Impact Risk Levels
+## Context System
 
-| Depth | Meaning | Action |
-|-------|---------|--------|
-| d=1 | WILL BREAK — direct callers/importers | MUST update these |
-| d=2 | LIKELY AFFECTED — indirect deps | Should test |
-| d=3 | MAY NEED TESTING — transitive | Test if critical path |
+Detailed guidance is modularized in `.kiro/context/`:
 
-## Resources
+```
+.kiro/context/
+├── core/           # Always loaded
+├── react/          # React 19 patterns
+├── typescript/     # Strict TS config
+├── validation/     # Zod patterns
+├── testing/        # Test strategy
+├── quality/        # Style, docs, pre-commit
+├── state/          # State management
+├── security/       # Security patterns
+├── performance/    # Optimization
+└── structure/      # Project architecture
+```
 
-| Resource | Use for |
-|----------|---------|
-| `gitnexus://repo/tabularis/context` | Codebase overview, check index freshness |
-| `gitnexus://repo/tabularis/clusters` | All functional areas |
-| `gitnexus://repo/tabularis/processes` | All execution flows |
-| `gitnexus://repo/tabularis/process/{name}` | Step-by-step execution trace |
+**Load specific context**: `@context [module-id]`
+**Full reference**: See `CLAUDE-full.md` or browse `.kiro/context/`
 
-## Self-Check Before Finishing
+---
 
-Before completing any code modification task, verify:
-1. `gitnexus_impact` was run for all modified symbols
-2. No HIGH/CRITICAL risk warnings were ignored
-3. `gitnexus_detect_changes()` confirms changes match expected scope
-4. All d=1 (WILL BREAK) dependents were updated
-
-## CLI
-
-- Re-index: `npx gitnexus analyze`
-- Check freshness: `npx gitnexus status`
-- Generate docs: `npx gitnexus wiki`
-
-<!-- gitnexus:end -->
+_For complete guidance, see `.kiro/context/` modules or `CLAUDE-full.md`_

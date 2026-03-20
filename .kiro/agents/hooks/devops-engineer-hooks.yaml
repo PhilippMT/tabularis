@@ -1,0 +1,345 @@
+# DevOps Engineer Agent Hooks Configuration
+# Automated infrastructure and deployment workflows
+
+agent_name: "DevOps Engineer"
+agent_role: "Infrastructure, Deployment & CI/CD Automation Expert"
+version: "1.0"
+
+hooks:
+  # Infrastructure and Deployment Triggers
+  - name: "systematic_infrastructure_implementation"
+    description: "Execute systematic infrastructure development using standardized framework"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execute"
+        - agent: "devops-engineer"
+    action:
+      type: "execute_prompt"
+      prompt: "execute.md"
+      message: "Executing systematic infrastructure development with comprehensive deployment validation and monitoring setup..."
+      agent: "devops-engineer"
+      include_context:
+        - infrastructure_requirements: true
+        - deployment_strategy: true
+        - monitoring_needs: true
+        - security_requirements: true
+
+  - name: "deployment_pipeline_trigger"
+    description: "Trigger deployment pipeline setup when new services are added"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "backend/package.json"
+        - "frontend/package.json"
+        - "docker-compose.yml"
+        - "Dockerfile"
+        - ".github/workflows/*.yml"
+    action:
+      type: "agent_message"
+      message: |
+        🚀 DEPLOYMENT PIPELINE REVIEW
+        
+        Infrastructure or deployment configuration changes detected. Use @execute for systematic deployment pipeline optimization.
+        
+        **Pipeline Assessment Areas:**
+        - CI/CD workflow optimization and automation
+        - Container configuration and orchestration
+        - Environment management and provisioning
+        - Deployment strategies and rollback procedures
+        - Infrastructure as Code implementation
+        
+        Use @execute to implement systematic deployment improvements with comprehensive validation.
+
+  - name: "infrastructure_scaling_trigger"
+    description: "Trigger infrastructure review when performance issues are detected"
+    trigger:
+      type: "manual"
+      description: "Manual trigger for performance issues or scaling needs"
+    action:
+      type: "agent_message"
+      message: |
+        📈 INFRASTRUCTURE SCALING ASSESSMENT
+        
+        Performance or scaling concerns detected. Let me help optimize your infrastructure.
+        
+        **Scaling Assessment Areas:**
+        - Current resource utilization and bottlenecks
+        - Auto-scaling configuration and triggers
+        - Load balancing and traffic distribution
+        - Database performance and scaling strategies
+        - CDN and caching optimization
+        
+        **Performance Analysis Questions:**
+        1. What performance issues are you experiencing? (Slow response times, high CPU, memory issues, database bottlenecks)
+        2. What's your current traffic patterns and expected growth? (Peak usage, geographic distribution, seasonal patterns)
+        3. What's your performance targets? (Response time, throughput, concurrent users)
+        4. What's your budget constraints for scaling? (Cost optimization priorities, resource limits)
+        5. What's your preferred scaling approach? (Vertical scaling, horizontal scaling, auto-scaling)
+        6. Do you need multi-region deployment or CDN optimization?
+        
+        I'll analyze your infrastructure and recommend scaling strategies that balance performance and cost.
+
+  - name: "environment_provisioning_trigger"
+    description: "Trigger environment setup when new environments are needed"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "terraform/*.tf"
+        - "cloudformation/*.yml"
+        - "k8s/*.yaml"
+        - "ansible/*.yml"
+    action:
+      type: "agent_message"
+      message: |
+        🏗️ ENVIRONMENT PROVISIONING REVIEW
+        
+        Infrastructure as Code changes detected. Let me help with environment provisioning and management.
+        
+        **Environment Management Areas:**
+        - Infrastructure as Code best practices and validation
+        - Environment consistency and configuration management
+        - Resource provisioning and cost optimization
+        - Security and access control implementation
+        - Backup and disaster recovery procedures
+        
+        **Environment Planning Questions:**
+        1. What environments are you provisioning? (Development, staging, production, testing)
+        2. What's your infrastructure requirements? (Compute, storage, networking, databases)
+        3. What's your security and compliance requirements? (Network isolation, encryption, access controls)
+        4. What's your backup and disaster recovery needs? (RTO, RPO, data retention)
+        5. What's your cost optimization priorities? (Resource sizing, auto-shutdown, reserved instances)
+        6. What monitoring and alerting do you need for these environments?
+        
+        I'll help ensure your infrastructure is reliable, secure, and cost-effective.
+
+  # Monitoring and Alerting Triggers
+  - name: "monitoring_setup_trigger"
+    description: "Trigger monitoring configuration when new services are deployed"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "backend/src/server.ts"
+        - "frontend/src/App.tsx"
+        - "docker-compose.yml"
+        - "k8s/deployment.yaml"
+    action:
+      type: "agent_message"
+      message: |
+        📊 MONITORING & OBSERVABILITY SETUP
+        
+        New service deployment detected. Let me help set up comprehensive monitoring and observability.
+        
+        **Monitoring Setup Areas:**
+        - Application performance monitoring (APM)
+        - Infrastructure monitoring and alerting
+        - Log aggregation and analysis
+        - Error tracking and debugging
+        - User experience and synthetic monitoring
+        
+        **Monitoring Requirements Questions:**
+        1. What metrics are most important to monitor? (Performance, availability, errors, business metrics)
+        2. What's your alerting preferences? (Email, Slack, PagerDuty, SMS)
+        3. What's your incident response process? (On-call rotation, escalation procedures)
+        4. What's your log retention and analysis needs? (Compliance, debugging, analytics)
+        5. What's your monitoring budget and tool preferences? (Open source, SaaS, enterprise)
+        6. Do you need custom dashboards or reporting? (Executive dashboards, team dashboards, customer-facing status)
+        
+        I'll design a monitoring strategy that provides visibility without overwhelming your team with noise.
+
+  - name: "incident_response_trigger"
+    description: "Trigger incident response when system alerts are detected"
+    trigger:
+      type: "manual"
+      description: "Manual trigger for system incidents or outages"
+    action:
+      type: "agent_message"
+      message: |
+        🚨 INCIDENT RESPONSE COORDINATION
+        
+        System incident or outage detected. Initiating incident response procedures.
+        
+        **Immediate Response Actions:**
+        - Assess incident severity and impact scope
+        - Coordinate incident response team and communication
+        - Implement immediate mitigation and recovery procedures
+        - Document incident timeline and actions taken
+        - Prepare stakeholder communication and updates
+        
+        **Critical Information Needed:**
+        1. What type of incident occurred? (Service outage, performance degradation, security breach, data loss)
+        2. What services or systems are affected? (Frontend, backend, database, third-party integrations)
+        3. What's the business impact? (User-facing, internal systems, revenue impact)
+        4. When did the incident start and what triggered it?
+        5. What immediate actions have been taken? (Rollbacks, scaling, service restarts)
+        6. Who needs to be notified? (Internal team, customers, stakeholders, compliance)
+        
+        I'll coordinate the incident response and help restore service as quickly as possible.
+
+  # CI/CD and Automation Triggers
+  - name: "cicd_optimization_trigger"
+    description: "Trigger CI/CD pipeline optimization when build times increase"
+    trigger:
+      type: "schedule"
+      schedule: "weekly"
+    action:
+      type: "agent_message"
+      message: |
+        ⚡ CI/CD PIPELINE OPTIMIZATION REVIEW
+        
+        Weekly CI/CD pipeline performance and optimization review.
+        
+        **Pipeline Optimization Areas:**
+        - Build time analysis and optimization
+        - Test execution parallelization and efficiency
+        - Deployment speed and reliability improvements
+        - Resource utilization and cost optimization
+        - Pipeline security and compliance validation
+        
+        **Optimization Assessment Questions:**
+        1. Are you experiencing any CI/CD performance issues? (Slow builds, test timeouts, deployment delays)
+        2. What's your current build and deployment frequency? (Multiple daily, daily, weekly)
+        3. What's your pipeline resource constraints? (Build agents, concurrent jobs, cost limits)
+        4. What optimizations would provide the most value? (Speed, reliability, cost, security)
+        5. Are there any new requirements or changes needed? (New environments, testing strategies, compliance)
+        
+        Let's identify opportunities to make your CI/CD pipeline faster, more reliable, and cost-effective.
+
+  - name: "backup_recovery_check"
+    description: "Regular backup and disaster recovery validation"
+    trigger:
+      type: "schedule"
+      schedule: "monthly"
+    action:
+      type: "agent_message"
+      message: |
+        💾 BACKUP & DISASTER RECOVERY VALIDATION
+        
+        Monthly backup and disaster recovery testing and validation.
+        
+        **Backup & Recovery Areas:**
+        - Database backup integrity and restoration testing
+        - Application data backup and recovery procedures
+        - Infrastructure backup and disaster recovery validation
+        - Recovery time objective (RTO) and recovery point objective (RPO) testing
+        - Documentation and runbook updates
+        
+        **Recovery Planning Questions:**
+        1. What's your current backup strategy and schedule? (Automated, manual, frequency)
+        2. When was the last successful recovery test? (Database, application, full system)
+        3. What's your RTO and RPO requirements? (Minutes, hours, days)
+        4. What disaster scenarios should we test? (Data corruption, service outage, regional failure)
+        5. Are your recovery procedures documented and up-to-date?
+        6. Do you need cross-region or multi-cloud disaster recovery?
+        
+        Let's ensure your backup and recovery procedures are reliable and meet your business continuity needs.
+
+  - name: "cost_optimization_review"
+    description: "Regular infrastructure cost analysis and optimization"
+    trigger:
+      type: "schedule"
+      schedule: "monthly"
+    action:
+      type: "agent_message"
+      message: |
+        💰 INFRASTRUCTURE COST OPTIMIZATION REVIEW
+        
+        Monthly infrastructure cost analysis and optimization opportunities.
+        
+        **Cost Optimization Areas:**
+        - Resource utilization analysis and rightsizing
+        - Reserved instance and savings plan optimization
+        - Auto-scaling configuration and efficiency
+        - Storage optimization and lifecycle management
+        - Network and data transfer cost optimization
+        
+        **Cost Analysis Questions:**
+        1. What's your current monthly infrastructure spend and budget? (Actual vs. budgeted costs)
+        2. What services are consuming the most resources and cost? (Compute, storage, networking, databases)
+        3. What's your usage patterns and growth trends? (Peak usage, seasonal variations, growth rate)
+        4. What cost optimization priorities do you have? (Immediate savings, long-term efficiency, performance balance)
+        5. Are you using reserved instances, savings plans, or spot instances effectively?
+        6. What monitoring and alerting do you have for cost management?
+        
+        I'll analyze your infrastructure costs and recommend optimization strategies that maintain performance while reducing expenses.
+
+# Integration Hooks with Other Agents
+integration_hooks:
+  - agent: "Backend Engineer"
+    trigger: "API deployment and scaling needs"
+    message: "DevOps Engineer available for backend service deployment and infrastructure scaling"
+    
+  - agent: "Frontend Architect"
+    trigger: "Frontend deployment and CDN optimization"
+    message: "DevOps Engineer ready to assist with frontend deployment and performance optimization"
+    
+  - agent: "Database Specialist"
+    trigger: "Database infrastructure and backup management"
+    message: "DevOps Engineer available for database infrastructure provisioning and backup automation"
+    
+  - agent: "Security Specialist"
+    trigger: "Infrastructure security and compliance"
+    message: "DevOps Engineer ready to collaborate on secure infrastructure and DevSecOps implementation"
+    
+  - agent: "Test Orchestrator"
+    trigger: "Testing infrastructure and CI/CD integration"
+    message: "DevOps Engineer available to integrate testing into deployment pipelines and provision test environments"
+
+# Consultation Triggers
+consultation_triggers:
+  - name: "infrastructure_requirements_gathering"
+    description: "Comprehensive infrastructure consultation for new projects"
+    message: |
+      🏗️ INFRASTRUCTURE REQUIREMENTS CONSULTATION
+      
+      Starting infrastructure planning for reliable and scalable deployment strategy.
+      
+      **Key Areas to Discuss:**
+      1. **Scalability Requirements**: What are your expected traffic patterns and growth projections?
+      2. **Deployment Strategy**: What's your preferred deployment approach and release frequency?
+      3. **Environment Needs**: How many environments do you need and what are their requirements?
+      4. **Budget Constraints**: What's your infrastructure budget and cost optimization priorities?
+      5. **Technology Preferences**: What cloud platforms, tools, and technologies do you prefer?
+      
+      Let's design infrastructure that balances performance, reliability, and cost-effectiveness.
+
+  - name: "deployment_strategy_consultation"
+    description: "Comprehensive deployment strategy and CI/CD consultation"
+    message: |
+      🚀 DEPLOYMENT STRATEGY CONSULTATION
+      
+      Planning deployment pipeline and CI/CD strategy for reliable software delivery.
+      
+      **Deployment Questions:**
+      1. **Release Frequency**: How often do you want to deploy? (Multiple daily, daily, weekly, on-demand)
+      2. **Deployment Strategy**: What approach fits best? (Blue-green, canary, rolling, immediate)
+      3. **Rollback Requirements**: What's your rollback strategy and recovery time needs?
+      4. **Testing Integration**: How should testing be integrated into the deployment pipeline?
+      5. **Environment Management**: What environments do you need and how should they be managed?
+      
+      I'll help design a deployment strategy that balances speed, reliability, and risk management.
+
+  - name: "quality_metrics_collection"
+    description: "Collect infrastructure and deployment quality metrics"
+    trigger:
+      type: "deployment_completion"
+      conditions:
+        - deployment_type: ["staging", "production"]
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting infrastructure quality metrics: deployment success, performance, and reliability..."
+      agent: "devops-engineer"
+      include_context:
+        - deployment_metrics: true
+        - infrastructure_performance: true
+        - reliability_indicators: true
+
+# Notification Settings
+notifications:
+  deployment_alerts: "immediate"
+  performance_issues: "immediate"
+  cost_alerts: "daily"
+  backup_failures: "immediate"
+  security_incidents: "immediate"
+  maintenance_windows: "24_hours_advance"

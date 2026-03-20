@@ -1,0 +1,6 @@
+{
+  "name": "Test Orchestrator",
+  "description": "Implements comprehensive testing strategies, quality assurance processes, and systematic validation with automated testing, performance benchmarks, and continuous quality improvement.",
+  "prompt": "agents/prompts/test-orchestrator-system.md",
+  "tools": ["execute", "code-review", "execution-report", "code-review-hackathon", "quality-metrics"]
+}

@@ -1,0 +1,358 @@
+# Security Specialist Agent Hooks Configuration
+# Automated security workflows and triggers
+
+agent_name: "Security Specialist"
+agent_role: "Application Security & Vulnerability Assessment Expert"
+version: "1.0"
+
+hooks:
+  # Systematic Security Implementation
+  - name: "systematic_security_implementation"
+    description: "Execute systematic security implementation using standardized framework"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execute"
+        - agent: "security-specialist"
+    action:
+      type: "execute_prompt"
+      prompt: "execute-security.md"
+      message: "Executing systematic security implementation with comprehensive threat analysis and vulnerability assessment..."
+      agent: "security-specialist"
+      include_context:
+        - security_requirements: true
+        - threat_model: true
+        - compliance_standards: true
+        - vulnerability_context: true
+
+  # Security Assessment Triggers
+  - name: "security_audit_trigger"
+    description: "Trigger comprehensive security audit when new features are deployed"
+    trigger:
+      type: "file_change"
+      patterns: 
+        - "backend/src/routes/*.ts"
+        - "backend/src/middleware/*.ts"
+        - "frontend/src/components/auth/*.tsx"
+        - "database/migrations/*.sql"
+    action:
+      type: "agent_message"
+      message: |
+        🔒 SECURITY AUDIT TRIGGER
+        
+        Changes detected in security-sensitive areas. Please conduct a security review focusing on:
+        
+        **Assessment Areas:**
+        - Authentication and authorization flows
+        - Input validation and sanitization
+        - Database access controls and queries
+        - API endpoint security and rate limiting
+        - Session management and token handling
+        
+        **Questions to Address:**
+        1. What type of security changes were made? (Authentication, authorization, data handling, API endpoints)
+        2. What sensitive data or operations are affected by these changes?
+        3. What compliance requirements need to be considered? (GDPR, HIPAA, PCI DSS)
+        4. What's the risk level of these changes? (Low, medium, high, critical)
+        5. Do you need immediate security testing or can this be part of regular audit cycle?
+        
+        Please provide details about the changes so I can conduct an appropriate security assessment.
+
+  - name: "vulnerability_scan_trigger"
+    description: "Trigger vulnerability scanning when dependencies are updated"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "package.json"
+        - "package-lock.json"
+        - "requirements.txt"
+        - "Dockerfile"
+    action:
+      type: "agent_message"
+      message: |
+        🛡️ DEPENDENCY SECURITY SCAN
+        
+        Dependency changes detected. Initiating security vulnerability assessment.
+        
+        **Scan Focus Areas:**
+        - Known vulnerabilities in updated packages
+        - License compliance and security implications
+        - Transitive dependency security risks
+        - Container image security (if Dockerfile changed)
+        
+        **Consultation Questions:**
+        1. Are these critical security updates or routine dependency updates?
+        2. Do you have any known security concerns with the updated packages?
+        3. What's your preferred vulnerability scanning approach? (Automated, manual review, both)
+        4. What severity level requires immediate action? (Critical, high, medium)
+        5. Do you need a detailed security report or summary of findings?
+        
+        I'll analyze the dependency changes and provide security recommendations.
+
+  - name: "auth_security_review"
+    description: "Trigger security review when authentication code changes"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "backend/src/services/authService.ts"
+        - "backend/src/middleware/auth.ts"
+        - "frontend/src/store/slices/authSlice.ts"
+        - "backend/src/routes/auth.ts"
+    action:
+      type: "agent_message"
+      message: |
+        🔐 AUTHENTICATION SECURITY REVIEW
+        
+        Authentication system changes detected. Conducting security assessment.
+        
+        **Security Review Checklist:**
+        - JWT token security and expiration handling
+        - Password hashing and storage security
+        - Session management and logout procedures
+        - Multi-factor authentication implementation
+        - Rate limiting and brute force protection
+        
+        **Consultation Questions:**
+        1. What authentication changes were implemented? (Login flow, token handling, password policies)
+        2. Are you implementing any new authentication methods? (OAuth, SAML, MFA)
+        3. What security standards should we validate against? (OWASP, NIST, industry-specific)
+        4. Do you need penetration testing of the authentication system?
+        5. What's your timeline for security validation? (Immediate, before deployment, scheduled review)
+        
+        Please describe the authentication changes so I can provide targeted security guidance.
+
+  # Compliance and Audit Triggers
+  - name: "compliance_check_trigger"
+    description: "Trigger compliance review for data handling changes"
+    trigger:
+      type: "file_change"
+      patterns:
+        - "backend/src/models/*.ts"
+        - "database/schema*.sql"
+        - "backend/src/services/*Service.ts"
+    action:
+      type: "agent_message"
+      message: |
+        📋 COMPLIANCE REVIEW TRIGGER
+        
+        Data model or service changes detected. Initiating compliance assessment.
+        
+        **Compliance Areas to Review:**
+        - Data privacy and protection (GDPR, CCPA)
+        - Data retention and deletion policies
+        - Audit logging and data access tracking
+        - Encryption requirements for sensitive data
+        - Cross-border data transfer compliance
+        
+        **Consultation Questions:**
+        1. What type of data changes were made? (New data fields, data processing logic, storage changes)
+        2. What compliance frameworks apply to your application? (GDPR, HIPAA, PCI DSS, SOC 2)
+        3. Do you handle any regulated data types? (Personal data, health records, financial information)
+        4. What's your data classification and handling policy?
+        5. Do you need compliance documentation or audit trail updates?
+        
+        I'll review the changes for compliance implications and provide guidance.
+
+  # Security Incident Analysis and Resolution
+  - name: "security_root_cause_analysis"
+    description: "Execute systematic root cause analysis for security issues"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "security-rca"
+        - command: "rca"
+        - parameters: ["issue_id"]
+    action:
+      type: "execute_prompt"
+      prompt: "rca.md"
+      message: "Conducting comprehensive root cause analysis for security issue..."
+      agent: "security-specialist"
+      include_context:
+        - security_incident_details: true
+        - vulnerability_context: true
+        - system_architecture: true
+
+  - name: "security_fix_implementation"
+    description: "Implement security fixes based on RCA analysis"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "implement-security-fix"
+        - command: "implement-fix"
+        - parameters: ["issue_id"]
+    action:
+      type: "execute_prompt"
+      prompt: "implement-fix.md"
+      message: "Implementing security fix based on root cause analysis..."
+      agent: "security-specialist"
+      include_context:
+        - rca_document: true
+        - security_requirements: true
+        - testing_procedures: true
+
+  - name: "security_incident_response"
+    description: "Trigger incident response when security alerts are detected"
+    trigger:
+      type: "manual"
+      description: "Manual trigger for security incidents or alerts"
+    action:
+      type: "agent_message"
+      message: |
+        🚨 SECURITY INCIDENT RESPONSE
+        
+        Security incident or alert detected. Initiating incident response protocol.
+        
+        **Immediate Response Actions:**
+        - Assess incident severity and scope
+        - Contain potential security breach
+        - Preserve evidence and audit trails
+        - Coordinate with development team
+        - Prepare incident documentation
+        
+        **Critical Information Needed:**
+        1. What type of security incident occurred? (Data breach, unauthorized access, malware, DDoS)
+        2. What systems or data are potentially affected?
+        3. When was the incident first detected?
+        4. What immediate containment actions have been taken?
+        5. Do you need to notify users, customers, or regulatory authorities?
+        6. What's your incident response team and communication plan?
+        
+        Use @rca [issue-id] for systematic root cause analysis of security incidents.
+        Use @implement-fix [issue-id] to implement fixes based on RCA findings.
+
+  # Security Testing and Validation
+  - name: "penetration_test_schedule"
+    description: "Schedule regular penetration testing and security assessments"
+    trigger:
+      type: "schedule"
+      schedule: "monthly"
+    action:
+      type: "agent_message"
+      message: |
+        🎯 SCHEDULED SECURITY ASSESSMENT
+        
+        Monthly security assessment and penetration testing review.
+        
+        **Assessment Scope:**
+        - Web application security testing
+        - API endpoint vulnerability assessment
+        - Authentication and authorization testing
+        - Database security review
+        - Infrastructure security validation
+        
+        **Planning Questions:**
+        1. What areas should be prioritized for this month's security testing?
+        2. Have there been any significant changes since the last assessment?
+        3. What testing approach do you prefer? (Automated scanning, manual testing, both)
+        4. Do you need external penetration testing or internal assessment?
+        5. What's your timeline for addressing any findings?
+        
+        Let's plan this month's security assessment based on your current priorities.
+
+  - name: "security_training_reminder"
+    description: "Remind team about security training and best practices"
+    trigger:
+      type: "schedule"
+      schedule: "quarterly"
+    action:
+      type: "agent_message"
+      message: |
+        🎓 SECURITY TRAINING & AWARENESS
+        
+        Quarterly security training and awareness session.
+        
+        **Training Topics:**
+        - Secure coding practices and common vulnerabilities
+        - Threat awareness and social engineering prevention
+        - Incident response procedures and escalation
+        - Compliance requirements and data protection
+        - Security tool usage and best practices
+        
+        **Training Planning Questions:**
+        1. What security topics are most relevant for your team right now?
+        2. Have there been any recent security incidents or near-misses to discuss?
+        3. What format works best for your team? (Workshop, documentation, hands-on exercises)
+        4. Do you need role-specific training? (Developers, DevOps, management)
+        5. How do you want to track and measure security awareness improvement?
+        
+        Let's plan effective security training that fits your team's needs and schedule.
+
+# Integration Hooks with Other Agents
+integration_hooks:
+  - agent: "Backend Engineer"
+    trigger: "API security review needed"
+    message: "Security Specialist available for API security consultation and code review"
+    
+  - agent: "Frontend Architect" 
+    trigger: "Client-side security implementation"
+    message: "Security Specialist ready to assist with frontend security patterns and XSS prevention"
+    
+  - agent: "Database Specialist"
+    trigger: "Database security configuration"
+    message: "Security Specialist available for database security review and access control setup"
+    
+  - agent: "DevOps Engineer"
+    trigger: "Infrastructure security hardening"
+    message: "Security Specialist ready to collaborate on secure deployment and monitoring setup"
+    
+  - agent: "Test Orchestrator"
+    trigger: "Security testing integration"
+    message: "Security Specialist available to integrate security testing into QA processes"
+
+# Consultation Triggers
+consultation_triggers:
+  - name: "security_requirements_gathering"
+    description: "Trigger comprehensive security consultation for new projects"
+    message: |
+      🔍 SECURITY REQUIREMENTS CONSULTATION
+      
+      Starting security requirements gathering for comprehensive protection strategy.
+      
+      **Key Areas to Discuss:**
+      1. **Security Priorities**: What are your main security concerns and objectives?
+      2. **Compliance Needs**: What regulatory or industry standards must you meet?
+      3. **Risk Tolerance**: What's your acceptable risk level and security investment?
+      4. **Threat Landscape**: What specific threats or attack vectors concern you most?
+      5. **Implementation Timeline**: What's your timeline for security implementation?
+      
+      Let's ensure we build security that matches your specific needs and constraints.
+
+  - name: "security_architecture_review"
+    description: "Comprehensive security architecture consultation"
+    message: |
+      🏗️ SECURITY ARCHITECTURE CONSULTATION
+      
+      Reviewing security architecture and design patterns for optimal protection.
+      
+      **Architecture Questions:**
+      1. **Security Model**: What security approach fits best? (Zero Trust, Defense in Depth, Risk-Based)
+      2. **Authentication Strategy**: What authentication methods do you need? (JWT, OAuth, MFA)
+      3. **Data Protection**: How should sensitive data be classified and protected?
+      4. **Network Security**: What network security controls are needed?
+      5. **Monitoring Requirements**: What security monitoring and alerting do you need?
+      
+      I'll help design a security architecture that balances protection with usability.
+
+  - name: "quality_metrics_collection"
+    description: "Collect security and compliance quality metrics"
+    trigger:
+      type: "security_assessment_completion"
+      conditions:
+        - assessment_type: ["vulnerability", "compliance", "audit"]
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting security quality metrics: vulnerability status, compliance scores, and risk assessment..."
+      agent: "security-specialist"
+      include_context:
+        - security_scan_results: true
+        - compliance_status: true
+        - risk_assessment: true
+
+# Notification Settings
+notifications:
+  security_alerts: "immediate"
+  compliance_deadlines: "24_hours_advance"
+  vulnerability_reports: "weekly_summary"
+  training_reminders: "monthly"
+  audit_schedules: "bi_weekly"

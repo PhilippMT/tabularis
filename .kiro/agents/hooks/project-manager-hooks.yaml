@@ -1,0 +1,513 @@
+# Project Manager Agent - Hook Configurations
+
+# Initial Project Consultation
+consultation:
+  - name: "project_consultation"
+    description: "Initiate project management consultation for new projects"
+    trigger:
+      type: "message_pattern"
+      pattern: "(?i)(new project|start project|project planning|manage project|project setup)"
+    action:
+      type: "send_message"
+      message: |
+        🎯 **Project Manager Consultation Started**
+        
+        I'll help you set up effective project management tailored to your specific needs:
+        
+        **📋 Project Scope Questions:**
+        - What type of project are we building?
+          • Web application with frontend/backend
+          • API service or microservice
+          • Mobile application
+          • Enterprise system or platform
+          • Other (please specify)
+        
+        - What's the primary goal and success criteria?
+        - Who are the target users and their key needs?
+        - What's the expected timeline and any hard deadlines?
+        - What's the team size and expertise level?
+        
+        **⚡ Methodology Preferences:**
+        - What development methodology do you prefer?
+          • Agile/Scrum with sprints
+          • Kanban with continuous flow
+          • Waterfall with phases
+          • Hybrid approach
+        
+        - How do you like to track progress?
+          • Sprint-based with regular reviews
+          • Milestone-based with major checkpoints
+          • Continuous delivery with daily updates
+          • Custom approach
+        
+        **👥 Team Structure Questions:**
+        - Which agents should be involved? (Frontend, Backend, Database, DevOps, Testing)
+        - How should agents collaborate and hand off work?
+        - What's your preferred task granularity? (Large features vs detailed tasks)
+        - How often do you want progress updates?
+        
+        **🎯 Quality & Risk Assessment:**
+        - What are your quality standards and testing requirements?
+        - Risk tolerance for new technologies or approaches?
+        - Any compliance, security, or performance requirements?
+        - Documentation and knowledge management preferences?
+        
+        Based on your answers, I'll create a customized project management approach with the right task structure, agent coordination, and progress tracking!
+      agent: "project-manager"
+
+# Project Lifecycle Hooks
+project_management:
+  - name: "project_initialization"
+    description: "Set up new project structure and initial planning"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "new-project"
+        - parameters: ["project_name", "project_type"]
+    action:
+      type: "execute_prompt"
+      prompt: "prime.md"
+      message: "New project requested. Loading project context and creating comprehensive project structure in Archon..."
+      agent: "project-manager"
+      include_context:
+        - project_requirements: true
+        - technology_stack: true
+        - timeline_constraints: true
+
+  - name: "quickstart_project_setup"
+    description: "Execute comprehensive project quickstart and onboarding"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "quickstart"
+        - command: "quick-start"
+    action:
+      type: "execute_prompt"
+      prompt: "quickstart.md"
+      message: "Initiating comprehensive project quickstart with automated setup and team onboarding..."
+      agent: "project-manager"
+      include_context:
+        - project_type: true
+        - team_preferences: true
+        - technology_stack: true
+        - initial_requirements: true
+
+  - name: "context_loading"
+    description: "Load comprehensive project context before major planning activities"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "load-context"
+        - command: "prime"
+    action:
+      type: "execute_prompt"
+      prompt: "prime.md"
+      message: "Loading comprehensive project context and codebase understanding..."
+      agent: "project-manager"
+      include_context:
+        - codebase_structure: true
+        - existing_documentation: true
+        - project_history: true
+
+  - name: "feature_planning"
+    description: "Create comprehensive feature implementation plans"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "plan-feature"
+        - parameters: ["feature_name"]
+    action:
+      type: "execute_prompt"
+      prompt: "plan-feature.md"
+      message: "Creating comprehensive feature implementation plan with architecture decisions and task breakdown..."
+      agent: "project-manager"
+      include_context:
+        - existing_architecture: true
+        - agent_availability: true
+        - project_constraints: true
+
+  - name: "requirements_documentation"
+    description: "Generate Product Requirements Documents for major features"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "create-prd"
+        - parameters: ["feature_name"]
+    action:
+      type: "execute_prompt"
+      prompt: "create-prd.md"
+      message: "Generating comprehensive Product Requirements Document..."
+      agent: "project-manager"
+      include_context:
+        - business_requirements: true
+        - user_needs: true
+        - technical_constraints: true
+
+  - name: "milestone_review"
+    description: "Assess milestone completion and plan next phase"
+    trigger:
+      type: "milestone_reached"
+      conditions:
+        - completion_percentage: ">= 90%"
+        - milestone_type: ["sprint", "release", "phase"]
+    action:
+      type: "send_message"
+      message: "Milestone approaching completion. Review deliverables, assess quality, identify any remaining tasks, celebrate achievements, and plan next milestone."
+      agent: "project-manager"
+      include_context:
+        - milestone_tasks: true
+        - quality_metrics: true
+        - team_performance: true
+
+# Task Management Hooks
+task_coordination:
+  - name: "task_assignment"
+    description: "Assign new tasks to appropriate agents"
+    trigger:
+      type: "task_created"
+      conditions:
+        - task_status: "todo"
+        - assignee: "unassigned"
+    action:
+      type: "send_message"
+      message: "New unassigned task detected. Analyze task requirements, determine best-fit agent based on expertise and availability, assign task with clear context and acceptance criteria."
+      agent: "project-manager"
+      include_context:
+        - task_details: true
+        - agent_workloads: true
+        - skill_requirements: true
+
+  - name: "task_blocked"
+    description: "Address blocked tasks and resolve impediments"
+    trigger:
+      type: "task_status_change"
+      conditions:
+        - to_status: "blocked"
+        - block_duration: "> 2 hours"
+    action:
+      type: "send_message"
+      message: "Task blocked for extended period. Investigate blocker, identify resolution options, reassign if needed, update dependencies, and communicate status to stakeholders."
+      agent: "project-manager"
+      include_context:
+        - blocker_details: true
+        - dependency_chain: true
+        - alternative_approaches: true
+
+  - name: "task_overdue"
+    description: "Manage overdue tasks and adjust planning"
+    trigger:
+      type: "task_deadline"
+      conditions:
+        - status: "overdue"
+        - priority: ["high", "critical"]
+    action:
+      type: "send_message"
+      message: "High-priority task overdue. Assess impact on project timeline, reallocate resources if needed, update stakeholders, and adjust downstream dependencies."
+      agent: "project-manager"
+      include_context:
+        - task_history: true
+        - resource_availability: true
+        - impact_analysis: true
+
+# Agent Coordination Hooks
+team_management:
+  - name: "agent_handoff_coordination"
+    description: "Facilitate smooth handoffs between agents"
+    trigger:
+      type: "agent_change"
+      conditions:
+        - task_in_progress: true
+        - context_transfer_required: true
+    action:
+      type: "send_message"
+      message: "Agent handoff detected. Ensure complete context transfer, verify receiving agent understands requirements, update task assignments, and monitor transition success."
+      agent: "project-manager"
+      include_context:
+        - handoff_context: true
+        - task_progress: true
+        - agent_capabilities: true
+
+  - name: "multi_agent_collaboration"
+    description: "Coordinate complex multi-agent tasks"
+    trigger:
+      type: "task_assignment"
+      conditions:
+        - agent_count: "> 1"
+        - task_complexity: ">= 4"
+        - coordination_required: true
+    action:
+      type: "send_message"
+      message: "Multi-agent task initiated. Define clear roles and responsibilities, establish communication protocols, set up coordination checkpoints, and monitor collaboration effectiveness."
+      agent: "project-manager"
+      include_context:
+        - agent_roles: true
+        - task_breakdown: true
+        - communication_plan: true
+
+  - name: "agent_capacity_management"
+    description: "Balance workload across available agents"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "09:00"
+        - days: ["monday", "wednesday", "friday"]
+    action:
+      type: "send_message"
+      message: "Capacity review scheduled. Assess current agent workloads, identify over/under-utilized agents, rebalance task assignments, and optimize team efficiency."
+      agent: "project-manager"
+      include_context:
+        - agent_workloads: true
+        - task_priorities: true
+        - performance_metrics: true
+
+# Quality Assurance Hooks
+quality_management:
+  - name: "code_review_coordination"
+    description: "Ensure code reviews are completed timely"
+    trigger:
+      type: "task_status_change"
+      conditions:
+        - to_status: "review"
+        - task_type: ["feature", "bugfix"]
+    action:
+      type: "send_message"
+      message: "Code review required. Assign appropriate reviewer, ensure review criteria are clear, set review deadline, and track completion."
+      agent: "project-manager"
+      include_context:
+        - code_changes: true
+        - reviewer_availability: true
+        - review_standards: true
+
+  - name: "testing_coordination"
+    description: "Coordinate testing efforts across the team"
+    trigger:
+      type: "feature_completion"
+      conditions:
+        - testing_required: true
+        - test_coverage: "< 80%"
+    action:
+      type: "send_message"
+      message: "Feature completed but testing insufficient. Coordinate with Test Orchestrator to ensure adequate coverage, schedule integration tests, and verify quality gates."
+      agent: "project-manager"
+      include_context:
+        - feature_scope: true
+        - current_coverage: true
+        - testing_requirements: true
+
+  - name: "deployment_readiness"
+    description: "Assess and coordinate deployment preparations"
+    trigger:
+      type: "milestone_completion"
+      conditions:
+        - milestone_type: "release"
+        - deployment_target: ["staging", "production"]
+    action:
+      type: "send_message"
+      message: "Release milestone completed. Coordinate with DevOps Assistant for deployment readiness check, ensure all quality gates passed, and prepare rollback plans."
+      agent: "project-manager"
+      include_context:
+        - release_scope: true
+        - quality_metrics: true
+        - deployment_requirements: true
+
+# Progress Monitoring Hooks
+progress_tracking:
+  - name: "daily_standup"
+    description: "Conduct daily progress review and planning"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "09:30"
+        - days: ["monday", "tuesday", "wednesday", "thursday", "friday"]
+    action:
+      type: "send_message"
+      message: "Daily standup time. Review yesterday's progress, identify today's priorities, surface any blockers, coordinate agent activities, and update project status."
+      agent: "project-manager"
+      include_context:
+        - daily_progress: true
+        - active_tasks: true
+        - team_availability: true
+
+  - name: "weekly_planning"
+    description: "Plan weekly objectives and resource allocation"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "08:00"
+        - day: "monday"
+    action:
+      type: "send_message"
+      message: "Weekly planning session. Review previous week's achievements, set this week's objectives, allocate resources, identify risks, and communicate plans to stakeholders."
+      agent: "project-manager"
+      include_context:
+        - weekly_metrics: true
+        - upcoming_deadlines: true
+        - resource_availability: true
+
+  - name: "velocity_tracking"
+    description: "Monitor team velocity and adjust planning"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "17:00"
+        - day: "friday"
+    action:
+      type: "send_message"
+      message: "Weekly velocity review. Calculate team velocity, compare to historical data, identify trends, adjust future planning, and update stakeholder expectations."
+      agent: "project-manager"
+      include_context:
+        - completed_tasks: true
+        - velocity_history: true
+        - planning_accuracy: true
+
+# Risk Management Hooks
+risk_monitoring:
+  - name: "dependency_risk_assessment"
+    description: "Monitor and mitigate dependency risks"
+    trigger:
+      type: "dependency_delay"
+      conditions:
+        - delay_duration: "> 24 hours"
+        - impact_level: ["medium", "high", "critical"]
+    action:
+      type: "send_message"
+      message: "Dependency delay detected with significant impact. Assess cascade effects, identify alternative approaches, communicate with affected stakeholders, and adjust project timeline."
+      agent: "project-manager"
+      include_context:
+        - dependency_chain: true
+        - impact_analysis: true
+        - mitigation_options: true
+
+  - name: "scope_creep_detection"
+    description: "Identify and manage scope changes"
+    trigger:
+      type: "requirement_change"
+      conditions:
+        - change_magnitude: "> 20%"
+        - project_phase: ["development", "testing"]
+    action:
+      type: "send_message"
+      message: "Significant scope change detected. Assess impact on timeline and resources, evaluate change necessity, negotiate with stakeholders, and update project plan accordingly."
+      agent: "project-manager"
+      include_context:
+        - change_details: true
+        - current_progress: true
+        - resource_constraints: true
+
+  - name: "quality_risk_monitoring"
+    description: "Monitor quality metrics and address degradation"
+    trigger:
+      type: "quality_threshold"
+      conditions:
+        - metric_type: ["test_coverage", "bug_rate", "performance"]
+        - threshold_breach: "below_minimum"
+    action:
+      type: "send_message"
+      message: "Quality metric below acceptable threshold. Investigate root cause, coordinate remediation efforts, adjust quality processes, and prevent future degradation."
+      agent: "project-manager"
+      include_context:
+        - quality_trends: true
+        - remediation_options: true
+        - process_gaps: true
+
+# Stakeholder Communication Hooks
+communication_management:
+  - name: "status_reporting"
+    description: "Generate and distribute project status reports"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "16:00"
+        - day: "friday"
+    action:
+      type: "send_message"
+      message: "Weekly status report due. Compile project progress, highlight achievements and challenges, update timeline and milestones, and prepare stakeholder communication."
+      agent: "project-manager"
+      include_context:
+        - weekly_progress: true
+        - milestone_status: true
+        - risk_register: true
+
+  - name: "escalation_management"
+    description: "Handle escalations and critical issues"
+    trigger:
+      type: "issue_escalation"
+      conditions:
+        - severity: ["high", "critical"]
+        - resolution_time: "> 4 hours"
+    action:
+      type: "send_message"
+      message: "Critical issue escalation. Assess situation, mobilize appropriate resources, communicate with stakeholders, coordinate resolution efforts, and document lessons learned."
+      agent: "project-manager"
+      include_context:
+        - issue_details: true
+        - available_resources: true
+        - stakeholder_impact: true
+
+# Manual Control Hooks
+manual_controls:
+  - name: "project_status_request"
+    description: "Provide comprehensive project status on demand"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "project-status"
+    action:
+      type: "send_message"
+      message: "Project status requested. Generate comprehensive status report including progress, milestones, risks, team performance, and recommendations."
+      agent: "project-manager"
+
+  - name: "resource_reallocation"
+    description: "Manually adjust resource allocation"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "reallocate-resources"
+        - parameters: ["from_agent", "to_agent", "task_ids"]
+    action:
+      type: "send_message"
+      message: "Resource reallocation requested. Transfer specified tasks, ensure proper context handoff, update assignments in Archon, and monitor transition success."
+      agent: "project-manager"
+
+  - name: "quality_metrics_collection"
+    description: "Collect and analyze quality metrics for continuous improvement"
+    trigger:
+      type: "session_completion"
+      conditions:
+        - session_duration: ">= 10 minutes"
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting comprehensive quality metrics and generating improvement insights..."
+      agent: "project-manager"
+      include_context:
+        - session_metrics: true
+        - team_performance: true
+        - quality_indicators: true
+
+# Configuration
+hook_settings:
+  global:
+    enabled: true
+    log_level: "info"
+    archon_integration: true
+    
+  project_management:
+    auto_task_assignment: true
+    milestone_tracking: true
+    risk_monitoring: true
+    
+  team_coordination:
+    handoff_monitoring: true
+    capacity_balancing: true
+    collaboration_tracking: true
+    
+  quality_assurance:
+    review_enforcement: true
+    testing_coordination: true
+    deployment_gates: true
+    
+  reporting:
+    daily_standups: true
+    weekly_reports: true
+    stakeholder_updates: true

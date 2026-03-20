@@ -8,7 +8,7 @@
     "github": "https://github.com/debba/tabularis"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 192.168.1.11",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",

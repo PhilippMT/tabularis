@@ -1,0 +1,112 @@
+{
+  "$schema": "https://tabularis.dev/schemas/plugin-manifest.json",
+  "id": "aws-aurora-ssm",
+  "name": "Aurora PostgreSQL (SSM)",
+  "version": "0.1.0",
+  "description": "Connect to AWS Aurora PostgreSQL through an AWS SSM jump host tunnel.",
+  "default_port": 5432,
+  "default_username": "postgres",
+  "executable": "aurora-ssm-plugin.py",
+  "capabilities": {
+    "schemas": true,
+    "views": true,
+    "routines": true,
+    "file_based": false,
+    "folder_based": false,
+    "connection_string": false,
+    "identifier_quote": "\"",
+    "alter_primary_key": true,
+    "serial_type": "SERIAL",
+    "inline_pk": false,
+    "alter_column": true,
+    "create_foreign_keys": true,
+    "no_connection_required": false
+  },
+  "settings": [
+    {
+      "key": "ssm_target",
+      "label": "SSM Target (instance ID)",
+      "type": "string",
+      "required": true,
+      "description": "Managed instance ID of your jump host (e.g., i-0123456789abcdef0)."
+    },
+    {
+      "key": "aws_region",
+      "label": "AWS Region",
+      "type": "string",
+      "default": "",
+      "description": "Optional. If empty, AWS CLI resolves region from your default config/environment."
+    },
+    {
+      "key": "aws_profile",
+      "label": "AWS Profile",
+      "type": "string",
+      "default": "",
+      "description": "Optional. Profile to pass via --profile. Leave empty to use default AWS credential chain."
+    },
+    {
+      "key": "iam_auth",
+      "label": "Use IAM Authentication",
+      "type": "boolean",
+      "default": false,
+      "description": "Generate a temporary IAM auth token instead of using the password from the connection form. Requires the DB user to have the rds_iam role granted."
+    },
+    {
+      "key": "ssl_ca_bundle",
+      "label": "SSL CA Bundle Path",
+      "type": "string",
+      "default": "",
+      "description": "Optional path to an RDS CA certificate bundle (e.g. global-bundle.pem). If empty, the system CA store is used. Download from https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem"
+    },
+    {
+      "key": "ssm_document_name",
+      "label": "SSM document",
+      "type": "string",
+      "default": "AWS-StartPortForwardingSessionToRemoteHost",
+      "description": "SSM Session Manager document for remote-host forwarding."
+    },
+    {
+      "key": "local_port",
+      "label": "Preferred local tunnel port",
+      "type": "number",
+      "default": 0,
+      "description": "0 = auto-assign free local port. Use a fixed port only if you need one."
+    },
+    {
+      "key": "connect_timeout_seconds",
+      "label": "Tunnel startup timeout (seconds)",
+      "type": "number",
+      "default": 20,
+      "description": "How long to wait for the local forwarded port to open."
+    }
+  ],
+  "data_types": [
+    { "name": "SMALLINT", "category": "numeric", "requires_length": false, "requires_precision": false },
+    { "name": "INTEGER", "category": "numeric", "requires_length": false, "requires_precision": false },
+    { "name": "BIGINT", "category": "numeric", "requires_length": false, "requires_precision": false },
+    { "name": "DECIMAL", "category": "numeric", "requires_length": false, "requires_precision": true, "default_length": "10,2" },
+    { "name": "NUMERIC", "category": "numeric", "requires_length": false, "requires_precision": true, "default_length": "10,2" },
+    { "name": "REAL", "category": "numeric", "requires_length": false, "requires_precision": false },
+    { "name": "DOUBLE PRECISION", "category": "numeric", "requires_length": false, "requires_precision": false },
+    { "name": "SERIAL", "category": "numeric", "requires_length": false, "requires_precision": false },
+    { "name": "BIGSERIAL", "category": "numeric", "requires_length": false, "requires_precision": false },
+    { "name": "VARCHAR", "category": "string", "requires_length": true, "requires_precision": false, "default_length": "255" },
+    { "name": "CHAR", "category": "string", "requires_length": true, "requires_precision": false, "default_length": "10" },
+    { "name": "TEXT", "category": "string", "requires_length": false, "requires_precision": false },
+    { "name": "BOOLEAN", "category": "other", "requires_length": false, "requires_precision": false },
+    { "name": "DATE", "category": "date", "requires_length": false, "requires_precision": false },
+    { "name": "TIME", "category": "date", "requires_length": false, "requires_precision": false },
+    { "name": "TIMESTAMP", "category": "date", "requires_length": false, "requires_precision": false },
+    { "name": "TIMESTAMPTZ", "category": "date", "requires_length": false, "requires_precision": false },
+    { "name": "INTERVAL", "category": "date", "requires_length": false, "requires_precision": false },
+    { "name": "JSON", "category": "json", "requires_length": false, "requires_precision": false },
+    { "name": "JSONB", "category": "json", "requires_length": false, "requires_precision": false },
+    { "name": "UUID", "category": "other", "requires_length": false, "requires_precision": false },
+    { "name": "BYTEA", "category": "binary", "requires_length": false, "requires_precision": false },
+    { "name": "GEOMETRY", "category": "spatial", "requires_length": false, "requires_precision": false },
+    { "name": "GEOGRAPHY", "category": "spatial", "requires_length": false, "requires_precision": false },
+    { "name": "POINT", "category": "spatial", "requires_length": false, "requires_precision": false },
+    { "name": "LINESTRING", "category": "spatial", "requires_length": false, "requires_precision": false },
+    { "name": "POLYGON", "category": "spatial", "requires_length": false, "requires_precision": false }
+  ]
+}

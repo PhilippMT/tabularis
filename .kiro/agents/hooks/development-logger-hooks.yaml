@@ -1,0 +1,392 @@
+# Development Logger Agent - Hook Configurations
+
+# Initial Consultation Hook
+consultation:
+  - name: "logging_consultation"
+    description: "Initiate development logging consultation for new projects"
+    trigger:
+      type: "message_pattern"
+      pattern: "(?i)(start logging|development log|track development|monitor progress|devlog setup)"
+    action:
+      type: "send_message"
+      message: |
+        📊 **Development Logger Consultation Started**
+        
+        I'll help you set up development experience tracking tailored to your team's needs:
+        
+        **📋 Logging Scope Questions:**
+        - What aspects of development do you want to track?
+          • Performance metrics (build times, test coverage)
+          • Collaboration patterns (agent handoffs, communication)  
+          • Technical decisions (architecture choices, problem solutions)
+          • User experience (workflow efficiency, pain points)
+        
+        **📈 Detail Level Preferences:**
+        - How detailed should the logs be?
+          • High-level summaries (key outcomes only)
+          • Standard documentation (full DEVLOG template)
+          • Detailed technical analysis (debug info, extended metrics)
+          • Custom format (your specific requirements)
+        
+        **🎯 Focus Areas:**
+        - What development phases are most important to monitor?
+          • Planning and architecture decisions
+          • Implementation and coding sessions
+          • Testing and quality assurance
+          • Deployment and production issues
+        
+        **📊 Reporting Preferences:**
+        - How often do you want development insights?
+          • After each feature completion
+          • Daily progress summaries  
+          • Weekly team retrospectives
+          • Milestone-based comprehensive reports
+        
+        **🔗 Integration Requirements:**
+        - How should logs integrate with your existing tools?
+          • Archon knowledge base for searchable insights
+          • Git commits and branch tracking
+          • Project management system updates
+          • Custom export formats (PDF, JSON, CSV)
+        
+        Based on your preferences, I'll customize the logging approach and template to perfectly fit your team's workflow!
+      agent: "development-logger"
+
+# Systematic Development Logging
+systematic_logging:
+  - name: "systematic_development_logging"
+    description: "Execute systematic development logging using standardized framework"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "execute"
+        - agent: "development-logger"
+    action:
+      type: "execute_prompt"
+      prompt: "execute-logging.md"
+      message: "Executing systematic development logging with comprehensive experience capture and process analysis..."
+      agent: "development-logger"
+      include_context:
+        - development_session: true
+        - performance_metrics: true
+        - collaboration_patterns: true
+        - process_effectiveness: true
+
+# Session Management Hooks
+session_tracking:
+  - name: "session_start"
+    description: "Initialize development session logging"
+    trigger:
+      type: "agent_activation"
+      conditions:
+        - agent_type: "any"
+        - session_type: "development"
+    action:
+      type: "send_message"
+      message: "Development session started. Creating session entry in DEVLOG."
+      agent: "development-logger"
+    
+  - name: "session_end"
+    description: "Finalize session summary and store insights"
+    trigger:
+      type: "agent_deactivation"
+      conditions:
+        - session_duration: ">= 5 minutes"
+    action:
+      type: "send_message"
+      message: "Development session ending. Generate session summary and update DEVLOG with final insights."
+      agent: "development-logger"
+
+# Feature Completion Hooks
+feature_tracking:
+  - name: "feature_complete"
+    description: "Log completed feature implementation"
+    trigger:
+      type: "task_status_change"
+      conditions:
+        - from_status: ["todo", "doing", "review"]
+        - to_status: "done"
+        - task_type: "feature"
+    action:
+      type: "send_message"
+      message: "Feature marked as complete. Please generate a comprehensive DEVLOG entry capturing: implementation details, challenges faced, solutions applied, performance metrics, and lessons learned."
+      agent: "development-logger"
+      include_context:
+        - task_details: true
+        - file_changes: true
+        - commit_history: true
+
+  - name: "bug_resolution"
+    description: "Document bug fix process and solution"
+    trigger:
+      type: "task_status_change"
+      conditions:
+        - from_status: ["todo", "doing"]
+        - to_status: "done"
+        - task_type: "bug"
+    action:
+      type: "send_message"
+      message: "Bug resolved. Document the problem analysis, solution approach, root cause, and preventive measures in DEVLOG."
+      agent: "development-logger"
+
+# Build and Test Hooks
+quality_tracking:
+  - name: "build_completion"
+    description: "Log build results and performance"
+    trigger:
+      type: "command_completion"
+      conditions:
+        - command_pattern: ["npm run build", "yarn build", "pnpm build"]
+        - exit_code: [0, 1]
+    action:
+      type: "send_message"
+      message: "Build completed. Capture build metrics: duration, bundle size, warnings, errors. Update performance tracking in current DEVLOG entry."
+      agent: "development-logger"
+      include_context:
+        - build_output: true
+        - build_time: true
+        - file_sizes: true
+
+# GEPA Reflection Hooks
+reflection_triggers:
+  - name: "session_reflection"
+    description: "Trigger deep reflection after development session"
+    trigger:
+      type: "session_end"
+    action:
+      type: "execute_prompt"
+      prompt: "workflows/optimize-prompts.md"
+      message: "Session ended. Initiating GEPA Reflection Cycle to analyze trajectory and identify potential prompt optimizations..."
+      agent: "development-logger"
+      include_context:
+        - session_logs: true
+        - interaction_trajectory: true
+        - recent_errors: true
+
+  - name: "error_spike_reflection"
+    description: "Trigger emergency reflection when errors spike"
+    trigger:
+      type: "metric_threshold"
+      conditions:
+        - metric: "error_rate"
+        - threshold: "> 5 per hour"
+    action:
+      type: "send_message"
+      message: "⚠️ Error Spike Detected. excessive errors indicate potential context realignment needed. Analyzing trajectory for root causes..."
+      agent: "development-logger"
+      include_context:
+        - error_logs: true
+        - recent_changes: true
+
+  - name: "test_completion"
+    description: "Log test results and coverage"
+    trigger:
+      type: "command_completion"
+      conditions:
+        - command_pattern: ["npm test", "yarn test", "pytest", "jest"]
+    action:
+      type: "send_message"
+      message: "Tests completed. Record test results: pass/fail counts, coverage percentage, performance, any new test additions. Update quality metrics in DEVLOG."
+      agent: "development-logger"
+      include_context:
+        - test_results: true
+        - coverage_report: true
+
+# Database Operations Hooks
+database_tracking:
+  - name: "migration_applied"
+    description: "Log database migration details"
+    trigger:
+      type: "file_change"
+      conditions:
+        - file_pattern: "**/migrations/*.sql"
+        - change_type: "created"
+    action:
+      type: "send_message"
+      message: "Database migration detected. Document migration details: schema changes, data impact, rollback plan, performance considerations."
+      agent: "development-logger"
+
+  - name: "schema_update"
+    description: "Track database schema modifications"
+    trigger:
+      type: "file_change"
+      conditions:
+        - file_pattern: ["**/schema.sql", "**/models/*.py", "**/entities/*.ts"]
+        - change_type: ["modified", "created"]
+    action:
+      type: "send_message"
+      message: "Database schema changes detected. Log the modifications, reasoning, and potential impact on existing data and queries."
+      agent: "development-logger"
+
+# Error and Problem Resolution Hooks
+problem_tracking:
+  - name: "error_encountered"
+    description: "Begin tracking problem resolution process"
+    trigger:
+      type: "command_failure"
+      conditions:
+        - exit_code: "!= 0"
+        - command_type: ["build", "test", "deploy"]
+    action:
+      type: "send_message"
+      message: "Error encountered during development. Start tracking problem resolution: error details, investigation approach, attempted solutions."
+      agent: "development-logger"
+      include_context:
+        - error_output: true
+        - command_context: true
+
+  - name: "solution_applied"
+    description: "Document successful problem resolution"
+    trigger:
+      type: "command_success"
+      conditions:
+        - previous_failure: true
+        - retry_count: ">= 1"
+    action:
+      type: "send_message"
+      message: "Problem resolved successfully. Document the solution: root cause analysis, fix applied, verification steps, prevention measures."
+      agent: "development-logger"
+
+# Collaboration Hooks
+agent_coordination:
+  - name: "agent_handoff"
+    description: "Log agent collaboration and context transfer"
+    trigger:
+      type: "agent_change"
+      conditions:
+        - context_transfer: true
+    action:
+      type: "send_message"
+      message: "Agent handoff detected. Document collaboration: context shared, work division, communication effectiveness, any coordination challenges."
+      agent: "development-logger"
+
+  - name: "multi_agent_task"
+    description: "Track multi-agent collaboration on complex tasks"
+    trigger:
+      type: "task_assignment"
+      conditions:
+        - agent_count: "> 1"
+        - task_complexity: ">= 3"
+    action:
+      type: "send_message"
+      message: "Multi-agent task initiated. Monitor collaboration patterns: work distribution, communication flow, conflict resolution, coordination efficiency."
+      agent: "development-logger"
+
+# Periodic Reporting Hooks
+reporting_schedule:
+  - name: "system_review_analysis"
+    description: "Execute systematic review of implementation vs plan for process improvements"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "system-review"
+        - parameters: ["plan_file", "execution_report"]
+    action:
+      type: "execute_prompt"
+      prompt: "system-review.md"
+      message: "Conducting systematic review of implementation against plan to identify process improvements..."
+      agent: "development-logger"
+      include_context:
+        - implementation_history: true
+        - plan_adherence: true
+        - process_metrics: true
+
+  - name: "milestone_process_review"
+    description: "Analyze development process effectiveness at major milestones"
+    trigger:
+      type: "milestone_completion"
+      conditions:
+        - milestone_type: ["sprint", "release", "phase"]
+    action:
+      type: "execute_prompt"
+      prompt: "system-review.md"
+      message: "Milestone completed. Analyzing development process effectiveness and identifying improvement opportunities..."
+      agent: "development-logger"
+      include_context:
+        - milestone_metrics: true
+        - team_performance: true
+        - process_adherence: true
+
+  - name: "daily_summary"
+    description: "Generate daily development summary"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "18:00"
+        - days: ["monday", "tuesday", "wednesday", "thursday", "friday"]
+    action:
+      type: "send_message"
+      message: "End of development day. Generate daily summary: features completed, challenges overcome, key learnings, tomorrow's priorities."
+      agent: "development-logger"
+
+  - name: "weekly_insights"
+    description: "Create comprehensive weekly development report"
+    trigger:
+      type: "schedule"
+      conditions:
+        - time: "17:00"
+        - day: "friday"
+    action:
+      type: "send_message"
+      message: "Weekly development review. Analyze patterns: productivity trends, common challenges, successful strategies, team performance insights, recommendations for next week."
+      agent: "development-logger"
+
+# Manual Trigger Hooks
+manual_controls:
+  - name: "manual_log_entry"
+    description: "Create manual DEVLOG entry"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "devlog"
+    action:
+      type: "send_message"
+      message: "Manual DEVLOG entry requested. Guide user through template completion: session details, accomplishments, challenges, insights, next steps."
+      agent: "development-logger"
+
+  - name: "insights_request"
+    description: "Generate custom insights report"
+    trigger:
+      type: "user_command"
+      conditions:
+        - command: "dev-insights"
+    action:
+      type: "send_message"
+      message: "Development insights requested. Analyze recent DEVLOG entries and generate custom report based on user's specific questions or focus areas."
+      agent: "development-logger"
+
+  - name: "quality_metrics_collection"
+    description: "Collect development process and learning quality metrics"
+    trigger:
+      type: "process_analysis_completion"
+      conditions:
+        - analysis_type: ["session", "milestone", "retrospective"]
+    action:
+      type: "execute_prompt"
+      prompt: "quality-metrics.md"
+      message: "Collecting process quality metrics: efficiency, learning effectiveness, and improvement opportunities..."
+      agent: "development-logger"
+      include_context:
+        - process_metrics: true
+        - learning_indicators: true
+        - improvement_opportunities: true
+
+# Configuration
+hook_settings:
+  global:
+    enabled: true
+    log_level: "info"
+    max_context_size: "10MB"
+    
+  session_tracking:
+    min_session_duration: "5 minutes"
+    auto_finalize: true
+    
+  feature_tracking:
+    require_manual_input: true
+    auto_metrics: true
+    
+  reporting:
+    store_in_archon: true
+    generate_trends: true
+    retention_days: 365
